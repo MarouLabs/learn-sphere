@@ -1,0 +1,17 @@
+.ls-fade-out {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all $ls-transition-smooth ease-out;
+    pointer-events: none;
+}
+
+.ls-fade-in {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all $ls-transition-smooth ease-in;
+}
+
+.ls-sync-expanded {
+    transform: scale(1.02);
+    transition: all $ls-transition-smooth ease-in-out;
+}

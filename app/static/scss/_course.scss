@@ -1,0 +1,54 @@
+.ls-tree {
+    margin-top: $ls-spacing-lg;
+}
+
+.ls-folder {
+    border: 1px solid $ls-border;
+    border-radius: $ls-border-radius;
+    margin: $ls-spacing-sm 0;
+    overflow: hidden;
+
+    >summary {
+        list-style: none;
+        cursor: pointer;
+        padding: $ls-spacing-10 $ls-spacing-md;
+        background: $ls-panel-3;
+        display: flex;
+        align-items: center;
+        gap: $ls-spacing-sm;
+
+        &.completed {
+            background: rgba($ls-success, 0.1);
+        }
+    }
+
+    >summary::-webkit-details-marker {
+        display: none;
+    }
+
+    >div {
+        padding: $ls-spacing-sm $ls-spacing-md;
+    }
+}
+
+.ls-lesson {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $ls-spacing-sm;
+    padding: $ls-spacing-sm $ls-spacing-10;
+    border: 1px solid $ls-border;
+    border-radius: $ls-border-radius;
+    margin: $ls-spacing-6 0;
+    background: $ls-panel-4;
+    cursor: pointer;
+
+    &:hover {
+        border-color: $ls-accent;
+    }
+
+    &.completed {
+        background: rgba($ls-success, 0.15);
+        border-color: rgba($ls-success, 0.3);
+    }
+}

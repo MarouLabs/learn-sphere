@@ -1,0 +1,170 @@
+// Course/Directory Cell Component
+.ls-course-cell {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid $ls-border;
+    border-radius: $ls-border-radius-lg;
+    overflow: hidden;
+    background: $ls-panel;
+    transition: all $ls-transition-fast;
+    cursor: pointer;
+    
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border-color: $ls-accent;
+    }
+}
+
+// Course image/thumbnail area
+.ls-course-cell-image {
+    width: 100%;
+    aspect-ratio: 16/9;
+    position: relative;
+    overflow: hidden;
+    
+    // Actual image
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    
+    // Fallback for courses (initials with color)
+    &.ls-course-fallback {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: $ls-font-size-xl;
+        font-weight: 700;
+        color: white;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+    
+    // Directory icon fallback
+    &.ls-directory-fallback {
+        background: $ls-purple;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        
+        .ls-directory-icon {
+            font-size: 2.5rem;
+            opacity: 0.9;
+        }
+    }
+}
+
+// Content area with title and metadata
+.ls-course-cell-content {
+    padding: $ls-spacing-md;
+}
+
+// Course/Directory title
+.ls-course-cell-title {
+    font-size: $ls-font-size-base;
+    font-weight: 600;
+    color: $ls-text;
+    margin: 0 0 $ls-spacing-xs 0;
+    line-height: 1.3;
+    word-break: break-word;
+    hyphens: auto;
+}
+
+// Type indicator (Course or Directory Type)
+.ls-course-cell-type {
+    font-size: $ls-font-size-sm;
+    color: $ls-muted;
+    margin: 0 0 $ls-spacing-sm 0;
+    text-transform: capitalize;
+    
+    &.ls-type-course {
+        color: $ls-accent;
+    }
+    
+    &.ls-type-module {
+        color: $ls-success;
+    }
+    
+    &.ls-type-directory {
+        color: $ls-muted;
+    }
+}
+
+// Progress section (only for courses/modules)
+.ls-course-cell-progress {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: $ls-spacing-sm;
+    
+    .ls-progress-label {
+        font-size: $ls-font-size-sm;
+        color: $ls-muted;
+        margin-right: $ls-spacing-sm;
+    }
+    
+    .ls-progress-percent {
+        font-size: $ls-font-size-sm;
+        font-weight: 600;
+        color: $ls-accent;
+        background: rgba($ls-accent, 0.1);
+        padding: $ls-spacing-2 $ls-spacing-xs;
+        border-radius: $ls-border-radius-sm;
+        min-width: 40px;
+        text-align: center;
+    }
+}
+
+// Progress bar
+.ls-course-cell-progress-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba($ls-border, 0.5);
+    border-radius: $ls-border-radius-full;
+    overflow: hidden;
+    margin-top: $ls-spacing-xs;
+    
+    .ls-progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, $ls-accent, $ls-accent-light);
+        border-radius: $ls-border-radius-full;
+        transition: width $ls-transition-smooth ease;
+        width: 0%;
+    }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+    .ls-course-cell-content {
+        padding: $ls-spacing-sm;
+    }
+    
+    .ls-course-cell-title {
+        font-size: $ls-font-size-sm;
+    }
+    
+    .ls-course-cell-image {
+        &.ls-course-fallback {
+            font-size: $ls-font-size-lg;
+        }
+        
+        &.ls-directory-fallback .ls-directory-icon {
+            font-size: 2rem;
+        }
+    }
+}
+
+// Directory icon (using CSS for folder icon)
+.ls-directory-icon {
+    position: relative;
+    display: inline-block;
+    
+    &::before {
+        content: "📁";
+        font-size: inherit;
+    }
+}

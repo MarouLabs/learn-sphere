@@ -1,0 +1,55 @@
+.ls-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: $ls-spacing-10 $ls-spacing-14;
+    border: 1px solid $ls-border;
+    background: transparent;
+    color: $ls-text;
+    border-radius: $ls-border-radius;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all $ls-transition-fast;
+    font-size: $ls-font-size-base;
+
+    &:hover {
+        border-color: $ls-accent;
+    }
+
+    &--primary {
+        background: $ls-accent;
+        border-color: $ls-accent;
+        color: $ls-accent-dark;
+        font-weight: 600;
+    }
+
+    &--success {
+        background: $ls-success;
+        border-color: $ls-success;
+        color: white;
+    }
+
+    &--danger {
+        background: $ls-error;
+        border-color: $ls-error;
+        color: white;
+    }
+
+    &--low-priority-danger {
+        background: $ls-accent;
+        border-color: $ls-accent;
+        color: white;
+
+        &:hover {
+            background: $ls-error;
+            border-color: $ls-error;
+            color: white;
+        }
+    }
+
+    &--small {
+        width: $ls-button-height;
+        height: $ls-button-height;
+        padding: 0;
+    }
+}

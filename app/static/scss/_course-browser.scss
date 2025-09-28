@@ -1,0 +1,18 @@
+.ls-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax($ls-grid-min-width, 1fr));
+    gap: $ls-grid-gap;
+    margin-top: $ls-spacing-md;
+}
+
+.ls-course-browser-card {
+    padding: $ls-spacing-md;
+    border: 1px solid $ls-border;
+    border-radius: $ls-border-radius-lg;
+    background: $ls-panel-3;
+    cursor: pointer;
+
+    &:hover {
+        border-color: $ls-accent;
+    }
+}

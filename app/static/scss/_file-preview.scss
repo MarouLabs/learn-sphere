@@ -1,0 +1,129 @@
+.ls-file-link {
+    display: block;
+    margin: $ls-spacing-sm 0;
+    padding: $ls-spacing-sm $ls-spacing-10;
+    background: $ls-panel-4;
+    border: 1px solid $ls-border;
+    border-radius: $ls-border-radius;
+    color: $ls-text;
+    text-decoration: none;
+}
+
+.ls-text-preview,
+.ls-text-preview-rendered {
+    margin: $ls-spacing-sm 0;
+    padding: $ls-spacing-lg;
+    background: $ls-panel-2;
+    border: 1px solid $ls-border;
+    border-radius: $ls-border-radius;
+    overflow-y: auto;
+}
+
+.ls-pdf-preview {
+    margin: $ls-spacing-sm 0;
+    background: $ls-panel-2;
+    border: 1px solid $ls-border;
+    border-radius: $ls-border-radius;
+    overflow: hidden;
+    height: $ls-pdf-preview-height;
+}
+
+.ls-pdf-embed {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.ls-preview-error {
+    color: $ls-muted;
+    text-align: center;
+    padding: $ls-spacing-xl;
+}
+
+.ls-preview-loading {
+    color: $ls-muted;
+    font-style: italic;
+}
+
+.ls-preview-content {
+    color: $ls-text;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Monaco, Inconsolata, "Liberation Mono", "Consolas", monospace;
+
+    &.markdown {
+        white-space: normal;
+        font-family: inherit;
+
+        h1 {
+            font-size: 1.8em;
+            margin: $ls-spacing-lg 0 $ls-spacing-sm;
+            color: $ls-accent;
+            border-bottom: 1px solid $ls-border;
+            padding-bottom: 4px;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            margin: $ls-spacing-14 0 $ls-spacing-6;
+            color: $ls-accent;
+        }
+
+        h3 {
+            font-size: 1.2em;
+            margin: $ls-spacing-md 0 $ls-border-radius-sm;
+            color: $ls-accent;
+        }
+
+        p {
+            margin: $ls-spacing-sm 0;
+            line-height: 1.6;
+        }
+
+        ul {
+            margin: $ls-spacing-sm 0;
+            padding-left: $ls-spacing-xl;
+        }
+
+        li {
+            margin: $ls-spacing-2 0;
+        }
+
+        code {
+            background: $ls-panel-2;
+            padding: $ls-spacing-2 $ls-spacing-xs;
+            border-radius: $ls-border-radius-sm;
+            font-size: 0.9em;
+            color: $ls-accent;
+        }
+
+        pre {
+            background: $ls-panel-2;
+            padding: $ls-spacing-md;
+            border-radius: $ls-border-radius;
+            overflow-x: auto;
+            margin: $ls-spacing-md 0;
+
+            code {
+                background: none;
+                padding: 0;
+            }
+        }
+
+        strong {
+            color: $ls-accent;
+            font-weight: 600;
+        }
+
+        em {
+            color: $ls-muted;
+            font-style: italic;
+        }
+    }
+
+    &.html,
+    &.text {
+        white-space: normal;
+        font-family: inherit;
+    }
+}

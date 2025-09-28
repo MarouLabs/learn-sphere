@@ -1,0 +1,122 @@
+// SCSS Variables for internal use
+// Colors
+$ls-bg: #0f172a;
+$ls-panel: #111827;
+$ls-panel-2: #0b1220;
+$ls-panel-3: #0e1626; // Darker panel variant
+$ls-panel-4: #0d1523; // Even darker panel variant
+$ls-accent: #38bdf8;
+$ls-accent-light: #60a5fa;
+$ls-accent-dark: #00131d;
+$ls-text: #e5e7eb;
+$ls-muted: #94a3b8;
+$ls-border: #23344a;
+$ls-success: #22c55e;
+$ls-error: #dc2626;
+$ls-warning: #f59e0b;
+$ls-info: #3b82f6;
+$ls-purple: #7c3aed;
+
+// Layout dimensions
+$ls-sidebar-width: 280px;
+$ls-topbar-height: 56px;
+$ls-border-radius: 8px;
+$ls-border-radius-lg: 10px;
+$ls-border-radius-sm: 4px;
+$ls-border-radius-xs: 3px;
+$ls-border-radius-full: 999px;
+
+// Spacing
+$ls-spacing-xs: 4px;
+$ls-spacing-sm: 8px;
+$ls-spacing-md: 12px;
+$ls-spacing-lg: 16px;
+$ls-spacing-xl: 20px;
+
+// Additional spacing values found in code
+$ls-spacing-2: 2px;
+$ls-spacing-5: 5px;
+$ls-spacing-6: 6px;
+$ls-spacing-10: 10px;
+$ls-spacing-14: 14px;
+
+// Typography
+$ls-font-size-xs: 9px;
+$ls-font-size-sm: 11px;
+$ls-font-size-base: 13px;
+$ls-font-size-md: 16px;
+$ls-font-size-lg: 18px;
+$ls-font-size-xl: 20px;
+$ls-font-size-10: 10px;
+
+// Component dimensions
+$ls-button-height: 36px;
+$ls-logo-size: 28px;
+$ls-delete-btn-size: 24px;
+$ls-select-min-height: 44px;
+$ls-pdf-preview-height: 600px;
+$ls-lesson-content-max-height: calc(100vh - 200px);
+$ls-lesson-content-mobile-max-height: calc(100vh - 250px);
+$ls-grid-min-width: 220px;
+$ls-grid-gap: 10px;
+
+// Transitions
+$ls-transition-fast: 0.2s ease;
+$ls-transition-smooth: 0.3s ease;
+
+// Z-index
+$ls-z-overlay: 40;
+$ls-z-toast: 10000;
+
+// CSS Custom Properties for runtime use
+:root {
+    /* Colors */
+    --ls-bg: #{$ls-bg};
+    --ls-panel: #{$ls-panel};
+    --ls-panel-2: #{$ls-panel-2};
+    --ls-panel-3: #{$ls-panel-3};
+    --ls-panel-4: #{$ls-panel-4};
+    --ls-accent: #{$ls-accent};
+    --ls-accent-light: #{$ls-accent-light};
+    --ls-accent-dark: #{$ls-accent-dark};
+    --ls-text: #{$ls-text};
+    --ls-muted: #{$ls-muted};
+    --ls-border: #{$ls-border};
+    --ls-success: #{$ls-success};
+    --ls-error: #{$ls-error};
+    --ls-warning: #{$ls-warning};
+    --ls-info: #{$ls-info};
+    --ls-purple: #{$ls-purple};
+
+    /* Layout */
+    --ls-sidebar-width: #{$ls-sidebar-width};
+    --ls-topbar-height: #{$ls-topbar-height};
+    --ls-border-radius: #{$ls-border-radius};
+    --ls-border-radius-lg: #{$ls-border-radius-lg};
+    --ls-border-radius-sm: #{$ls-border-radius-sm};
+    --ls-border-radius-xs: #{$ls-border-radius-xs};
+    --ls-border-radius-full: #{$ls-border-radius-full};
+
+    /* Spacing */
+    --ls-spacing-xs: #{$ls-spacing-xs};
+    --ls-spacing-sm: #{$ls-spacing-sm};
+    --ls-spacing-md: #{$ls-spacing-md};
+    --ls-spacing-lg: #{$ls-spacing-lg};
+    --ls-spacing-xl: #{$ls-spacing-xl};
+
+    /* Typography */
+    --ls-font-size-xs: #{$ls-font-size-xs};
+    --ls-font-size-sm: #{$ls-font-size-sm};
+    --ls-font-size-base: #{$ls-font-size-base};
+    --ls-font-size-md: #{$ls-font-size-md};
+    --ls-font-size-lg: #{$ls-font-size-lg};
+    --ls-font-size-xl: #{$ls-font-size-xl};
+
+    /* Transitions */
+    --ls-transition-fast: #{$ls-transition-fast};
+    --ls-transition-smooth: #{$ls-transition-smooth};
+
+    /* Z-index */
+    --ls-z-overlay: #{$ls-z-overlay};
+    --ls-z-toast: #{$ls-z-toast};
+}

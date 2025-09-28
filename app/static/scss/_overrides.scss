@@ -1,0 +1,41 @@
+// Delete button
+.ls-delete-btn {
+    background: transparent;
+    border: 1px solid $ls-border;
+    color: $ls-muted;
+    width: $ls-delete-btn-size;
+    height: $ls-delete-btn-size;
+    border-radius: $ls-border-radius-sm;
+    cursor: pointer;
+    font-size: $ls-font-size-md;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all $ls-transition-fast;
+    flex-shrink: 0;
+
+    &:hover {
+        background: $ls-error;
+        border-color: $ls-error;
+        color: white;
+    }
+}
+
+// Sync progress
+#syncProgress .ls-progress {
+    background: rgba($ls-purple, 0.2);
+    border: 1px solid rgba($ls-purple, 0.3);
+}
+
+#syncProcessingList {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: $ls-spacing-6;
+    padding: $ls-spacing-md;
+    border: 1px solid $ls-border;
+}
+
+#syncButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

@@ -1,0 +1,33 @@
+.ls-panel {
+    background: $ls-panel;
+    border: 1px solid $ls-border;
+    border-radius: $ls-border-radius-lg;
+    padding: $ls-spacing-lg;
+}
+
+.ls-card {
+    padding: $ls-spacing-10 $ls-spacing-md;
+    border: 1px solid $ls-border;
+    border-radius: $ls-border-radius;
+    margin-bottom: $ls-spacing-sm;
+    cursor: pointer;
+    background: $ls-panel-3;
+    display: flex;
+    align-items: center;
+    gap: $ls-spacing-sm;
+    transition: border-color $ls-transition-fast;
+
+    &:hover {
+        border-color: $ls-accent;
+    }
+
+    &.completed {
+        background: rgba($ls-success, 0.15);
+        border-color: rgba($ls-success, 0.3);
+    }
+
+    &.current {
+        background: rgba($ls-accent, 0.15);
+        border-color: rgba($ls-accent, 0.4);
+    }
+}

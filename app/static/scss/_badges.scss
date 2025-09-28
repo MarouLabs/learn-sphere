@@ -1,0 +1,41 @@
+.ls-badge {
+    font-size: $ls-font-size-sm;
+    padding: $ls-spacing-6 $ls-spacing-md;
+    border-radius: $ls-border-radius-full;
+    border: 1px solid $ls-border;
+    background: $ls-panel-2;
+}
+
+.ls-duration-badge {
+    font-size: $ls-font-size-xs;
+    padding: $ls-spacing-2 $ls-spacing-5;
+    border-radius: $ls-border-radius-xs;
+    background: $ls-border;
+    color: $ls-muted;
+    margin-left: $ls-spacing-xs;
+    font-weight: 500;
+}
+
+// File type badges
+.ls-file-type-badge {
+    font-size: $ls-font-size-10;
+    padding: $ls-spacing-2 $ls-spacing-6;
+    border-radius: $ls-border-radius-sm;
+    font-weight: 600;
+    margin-left: $ls-spacing-6;
+
+    &.video {
+        background: $ls-error;
+        color: white;
+    }
+
+    &.audio {
+        background: $ls-purple;
+        color: white;
+    }
+
+    &.text {
+        background: $ls-info;
+        color: white;
+    }
+}

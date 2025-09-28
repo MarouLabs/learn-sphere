@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% from "components/course_cell.html" import course_cell %}
+
+{% block title %}Learn Sphere - Home{% endblock %}
+
+{% block content %}
+<div class="ls-home-container">
+    <!-- Header -->
+    <header class="ls-home-header">
+        <div class="ls-home-brand">
+            <div class="ls-home-logo">LS</div>
+            <span>Learn Sphere</span>
+        </div>
+        <button id="theme-toggle" class="ls-theme-toggle">
+            ☀️/🌑
+        </button>
+    </header>
+
+    <!-- Main content -->
+    <main class="ls-home-content">
+        <!-- Title -->
+        <h1 class="ls-home-title">Root Directory</h1>
+
+        <!-- Grid of courses/directories -->
+        {% if courses %}
+            <div class="ls-home-grid">
+                {% for course in courses %}
+                    {{ course_cell(course) }}
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="ls-home-empty">
+                <div class="ls-home-empty-title">No Courses Found</div>
+                <div class="ls-home-empty-message">
+                    Please check your COURSES_ROOT_DIRECTORY_ABS_PATH configuration<br>
+                    and ensure the directory contains course folders.
+                </div>
+            </div>
+        {% endif %}
+    </main>
+</div>
+
+<script>
+// Theme toggle functionality (placeholder)
+document.getElementById('theme-toggle')?.addEventListener('click', function() {
+    // TODO: Implement theme toggle functionality
+    console.log('Theme toggle clicked');
+});
+</script>
+{% endblock %}

@@ -1,0 +1,18 @@
+.ls-text-muted {
+    color: $ls-muted;
+}
+
+.ls-text-success {
+    color: $ls-success;
+    font-weight: 700;
+}
+
+.ls-text-center {
+    text-align: center;
+}
+
+.ls-title {
+    font-size: $ls-font-size-xl;
+    text-align: center;
+    margin-bottom: $ls-spacing-lg;
+}

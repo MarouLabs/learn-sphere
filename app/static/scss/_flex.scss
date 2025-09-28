@@ -1,0 +1,19 @@
+.ls-hidden {
+    display: none;
+}
+
+.ls-flex {
+    display: flex;
+}
+
+.ls-flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ls-flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

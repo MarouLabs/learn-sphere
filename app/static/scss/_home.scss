@@ -1,0 +1,122 @@
+// Home page styles
+.ls-home-container {
+    min-height: 100vh;
+    background: $ls-bg;
+}
+
+// Header styles
+.ls-home-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $ls-spacing-lg $ls-spacing-xl;
+    border-bottom: 1px solid $ls-border;
+    background: $ls-panel;
+    max-width: 1280px;
+    margin: 0 auto;
+    
+    @media (max-width: 768px) {
+        padding: $ls-spacing-md;
+    }
+}
+
+.ls-home-brand {
+    display: flex;
+    align-items: center;
+    gap: $ls-spacing-sm;
+    font-weight: 700;
+    font-size: $ls-font-size-lg;
+    color: $ls-text;
+    letter-spacing: 0.3px;
+}
+
+.ls-home-logo {
+    width: $ls-logo-size;
+    height: $ls-logo-size;
+    display: grid;
+    place-items: center;
+    border-radius: $ls-spacing-6;
+    background: $ls-accent;
+    color: $ls-accent-dark;
+    font-weight: 900;
+    font-size: $ls-font-size-md;
+}
+
+.ls-theme-toggle {
+    padding: $ls-spacing-sm $ls-spacing-md;
+    border: 1px solid $ls-border;
+    background: transparent;
+    color: $ls-text;
+    border-radius: $ls-border-radius;
+    cursor: pointer;
+    transition: all $ls-transition-fast;
+    font-size: $ls-font-size-base;
+    
+    &:hover {
+        border-color: $ls-accent;
+        background: rgba($ls-accent, 0.1);
+    }
+    
+    @media (max-width: 768px) {
+        padding: $ls-spacing-xs $ls-spacing-sm;
+        font-size: $ls-font-size-sm;
+    }
+}
+
+// Main content area
+.ls-home-content {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: $ls-spacing-xl;
+    
+    @media (max-width: 768px) {
+        padding: $ls-spacing-md;
+    }
+}
+
+// Page title
+.ls-home-title {
+    font-size: $ls-font-size-xl;
+    font-weight: 600;
+    color: $ls-text;
+    text-align: center;
+    margin-bottom: $ls-spacing-xl;
+    
+    @media (max-width: 768px) {
+        font-size: $ls-font-size-lg;
+        margin-bottom: $ls-spacing-lg;
+    }
+}
+
+// Course grid
+.ls-home-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $ls-spacing-lg;
+
+    @media (max-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: $ls-spacing-md;
+    }
+    
+    @media (max-width: 480px) {
+        gap: $ls-spacing-sm;
+    }
+}
+
+// Empty state
+.ls-home-empty {
+    text-align: center;
+    padding: $ls-spacing-xl 0;
+    color: $ls-muted;
+    
+    .ls-home-empty-title {
+        font-size: $ls-font-size-lg;
+        margin-bottom: $ls-spacing-sm;
+    }
+    
+    .ls-home-empty-message {
+        font-size: $ls-font-size-base;
+        line-height: 1.6;
+    }
+}

@@ -1,0 +1,54 @@
+{% macro course_cell(course) %}
+<a href="/course/{{ course.id }}" class="ls-course-cell">
+    <!-- Course Image/Thumbnail -->
+    <div class="ls-course-cell-image 
+        {% if course.metadata.image %}
+            ls-has-image
+        {% elif course.node_type.value == 'directory' %}
+            ls-directory-fallback
+        {% else %}
+            ls-course-fallback
+        {% endif %}"
+        {% if not course.metadata.image %}
+            style="background-color: {{ course|course_color }};"
+        {% endif %}>
+        
+        {% if course.metadata.image %}
+            <img src="{{ course.metadata.image }}" alt="{{ course.title }}" loading="lazy">
+        {% elif course.node_type.value == 'directory' %}
+            <div class="ls-directory-icon"></div>
+        {% else %}
+            {{ course.get_initials() }}
+        {% endif %}
+    </div>
+    
+    <!-- Course Content -->
+    <div class="ls-course-cell-content">
+        <!-- Title -->
+        <h3 class="ls-course-cell-title">{{ course.title }}</h3>
+        
+        <!-- Type -->
+        <div class="ls-course-cell-type ls-type-{{ course.node_type.value }}">
+            {% if course.node_type.value == 'course' %}
+                Course
+            {% elif course.node_type.value == 'module' %}
+                Module
+            {% else %}
+                Directory
+            {% endif %}
+        </div>
+        
+        <!-- Progress (only for courses and modules) -->
+        {% if course.node_type.value in ['course', 'module'] %}
+            <div class="ls-course-cell-progress">
+                <span class="ls-progress-label">Progress</span>
+                <span class="ls-progress-percent">{{ "%.0f"|format(course.progress.progress_percent) }}%</span>
+            </div>
+            
+            <div class="ls-course-cell-progress-bar">
+                <div class="ls-progress-fill" style="width: {{ course.progress.progress_percent }}%;"></div>
+            </div>
+        {% endif %}
+    </div>
+</a>
+{% endmacro %}

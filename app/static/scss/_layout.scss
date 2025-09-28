@@ -1,0 +1,42 @@
+.ls-layout {
+    display: grid;
+    grid-template-columns: var(--ls-sidebar-width) 1fr;
+    grid-template-rows: var(--ls-topbar-height) 1fr;
+    height: 100vh;
+}
+
+.ls-topbar {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: var(--ls-spacing-md);
+    padding: 0 var(--ls-spacing-lg);
+    border-bottom: 1px solid var(--ls-border);
+    background: var(--ls-panel-2);
+}
+
+.ls-sidebar {
+    background: var(--ls-panel);
+    border-right: 1px solid var(--ls-border);
+    overflow: auto;
+
+    h2 {
+        font-size: var(--ls-font-size-md);
+        padding: var(--ls-spacing-lg);
+        margin: 0;
+        border-bottom: 1px solid var(--ls-border);
+        color: var(--ls-accent);
+    }
+}
+
+.ls-content {
+    padding: var(--ls-spacing-lg);
+    overflow: visible;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+
+    &.fullwidth {
+        grid-column: 1 / -1;
+    }
+}

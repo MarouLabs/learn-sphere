@@ -1,0 +1,14 @@
+.ls-progress {
+    height: $ls-spacing-10;
+    background: $ls-panel-3;
+    border-radius: $ls-border-radius-full;
+    overflow: hidden;
+    border: 1px solid $ls-border;
+
+    &__fill {
+        height: 100%;
+        background: linear-gradient(90deg, $ls-accent, $ls-accent-light);
+        width: 0;
+        transition: width $ls-transition-smooth ease;
+    }
+}

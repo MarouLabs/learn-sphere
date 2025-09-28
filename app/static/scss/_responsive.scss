@@ -1,0 +1,28 @@
+@media (max-width: 960px) {
+    .ls-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .ls-sidebar {
+        position: fixed;
+        z-index: $ls-z-overlay;
+        inset: $ls-topbar-height 0 auto 0;
+        height: calc(100% - #{$ls-topbar-height});
+        transform: translateX(-100%);
+        transition: transform $ls-transition-fast ease;
+
+        &.open {
+            transform: translateX(0);
+        }
+    }
+
+    .ls-select {
+        padding: $ls-spacing-md $ls-spacing-sm;
+        font-size: $ls-font-size-md;
+        min-height: 44px;
+    }
+
+    .ls-lesson-content {
+        max-height: $ls-lesson-content-mobile-max-height;
+    }
+}

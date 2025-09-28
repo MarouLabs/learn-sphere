@@ -1,0 +1,18 @@
+.ls-brand {
+  display: flex;
+  align-items: center;
+  gap: $ls-spacing-sm;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.ls-logo {
+  width: $ls-logo-size;
+  height: $ls-logo-size;
+  display: grid;
+  place-items: center;
+  border-radius: $ls-spacing-6;
+  background: $ls-accent;
+  color: $ls-accent-dark;
+  font-weight: 900;
+}

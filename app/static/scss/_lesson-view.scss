@@ -1,0 +1,70 @@
+.ls-side-list {
+    display: flex;
+    flex-direction: column;
+    gap: $ls-spacing-6;
+}
+
+.ls-side-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $ls-spacing-sm;
+    padding: $ls-spacing-10 $ls-spacing-md;
+    border: 1px solid $ls-border;
+    border-radius: $ls-border-radius;
+    background: $ls-panel-4;
+    cursor: pointer;
+
+    &:hover {
+        border-color: $ls-accent;
+    }
+
+    &.completed {
+        background: rgba($ls-success, 0.15);
+        border-color: rgba($ls-success, 0.3);
+    }
+
+    &.current {
+        background: rgba($ls-accent, 0.15);
+        border-color: rgba($ls-accent, 0.4);
+    }
+}
+
+.ls-side-item-title {
+    font-size: $ls-font-size-base;
+    word-break: break-word;
+    white-space: normal;
+    flex: 1;
+}
+
+.ls-player-card {
+    background: $ls-panel;
+    border: 1px solid $ls-border;
+    border-radius: $ls-border-radius-lg;
+    padding: $ls-spacing-md;
+}
+
+.ls-lesson-content {
+    max-height: $ls-lesson-content-max-height;
+    overflow-y: auto;
+    margin-bottom: $ls-spacing-lg;
+}
+
+.ls-player-wrap {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.ls-video,
+.ls-audio {
+    width: 100%;
+    max-height: 60vh;
+    border-radius: $ls-border-radius;
+    background: black;
+}
+
+.ls-nav-buttons {
+    display: flex;
+    gap: $ls-spacing-sm;
+    margin-top: $ls-spacing-14;
+}
