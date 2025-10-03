@@ -1,9 +1,15 @@
 // Directory row cells
 .ls-directories-list {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
     gap: $ls-spacing-sm;
     margin-bottom: $ls-spacing-lg;
+
+    // Tablet and Desktop: 2 columns
+    @media (min-width: $ls-breakpoint-mobile-max + 1) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: $ls-spacing-md;
+    }
 }
 
 .ls-directory-row-cell {
