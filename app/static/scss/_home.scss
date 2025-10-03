@@ -1,66 +1,12 @@
-// Home page styles
+// Page container styles (used by home, directory, and course pages)
 .ls-home-container {
-    min-height: 100vh;
-    background: $ls-bg;
+    flex: 1;
+    background: var(--ls-bg);
 }
 
-// Header styles
-.ls-home-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: $ls-spacing-lg $ls-spacing-xl;
-    border-bottom: 1px solid $ls-border;
-    background: $ls-panel;
-    max-width: 1280px;
-    margin: 0 auto;
-    
-    @media (max-width: 768px) {
-        padding: $ls-spacing-md;
-    }
-}
-
-.ls-home-brand {
-    display: flex;
-    align-items: center;
-    gap: $ls-spacing-sm;
-    font-weight: 700;
-    font-size: $ls-font-size-lg;
-    color: $ls-text;
-    letter-spacing: 0.3px;
-}
-
-.ls-home-logo {
-    width: $ls-logo-size;
-    height: $ls-logo-size;
-    display: grid;
-    place-items: center;
-    border-radius: $ls-spacing-6;
-    background: $ls-accent;
-    color: $ls-accent-dark;
-    font-weight: 900;
-    font-size: $ls-font-size-md;
-}
-
-.ls-theme-toggle {
-    padding: $ls-spacing-sm $ls-spacing-md;
-    border: 1px solid $ls-border;
-    background: transparent;
-    color: $ls-text;
-    border-radius: $ls-border-radius;
-    cursor: pointer;
-    transition: all $ls-transition-fast;
-    font-size: $ls-font-size-base;
-    
-    &:hover {
-        border-color: $ls-accent;
-        background: rgba($ls-accent, 0.1);
-    }
-    
-    @media (max-width: 768px) {
-        padding: $ls-spacing-xs $ls-spacing-sm;
-        font-size: $ls-font-size-sm;
-    }
+.ls-course-details-container {
+    flex: 1;
+    background: var(--ls-bg);
 }
 
 // Main content area
@@ -74,6 +20,34 @@
     }
 }
 
+// Breadcrumb navigation
+.ls-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: $ls-spacing-sm;
+    margin-bottom: $ls-spacing-lg;
+    font-size: $ls-font-size-base;
+
+    .ls-breadcrumb-link {
+        color: $ls-accent;
+        text-decoration: none;
+        transition: color $ls-transition-fast;
+
+        &:hover {
+            color: $ls-accent-light;
+        }
+    }
+
+    .ls-breadcrumb-separator {
+        color: $ls-muted;
+    }
+
+    .ls-breadcrumb-current {
+        color: $ls-text;
+        font-weight: 500;
+    }
+}
+
 // Page title
 .ls-home-title {
     font-size: $ls-font-size-xl;
@@ -81,9 +55,73 @@
     color: $ls-text;
     text-align: center;
     margin-bottom: $ls-spacing-xl;
-    
+
     @media (max-width: 768px) {
         font-size: $ls-font-size-lg;
+        margin-bottom: $ls-spacing-lg;
+    }
+}
+
+// Section titles
+.ls-section-title {
+    font-size: $ls-font-size-lg;
+    font-weight: 600;
+    color: $ls-text;
+    margin-bottom: $ls-spacing-lg;
+    text-align: left;
+
+    @media (max-width: 768px) {
+        font-size: $ls-font-size-base;
+        margin-bottom: $ls-spacing-md;
+    }
+}
+
+// Directories section
+.ls-directories-section {
+    margin-bottom: $ls-spacing-xl;
+
+    @media (max-width: 768px) {
+        margin-bottom: $ls-spacing-lg;
+    }
+}
+
+// Courses section
+.ls-courses-section {
+    margin-bottom: $ls-spacing-xl;
+
+    @media (max-width: 768px) {
+        margin-bottom: $ls-spacing-lg;
+    }
+}
+
+// Section titles
+.ls-section-title {
+    font-size: $ls-font-size-lg;
+    font-weight: 600;
+    color: $ls-text;
+    margin-bottom: $ls-spacing-lg;
+    text-align: left;
+
+    @media (max-width: 768px) {
+        font-size: $ls-font-size-base;
+        margin-bottom: $ls-spacing-md;
+    }
+}
+
+// Directories section
+.ls-directories-section {
+    margin-bottom: $ls-spacing-xl;
+
+    @media (max-width: 768px) {
+        margin-bottom: $ls-spacing-lg;
+    }
+}
+
+// Courses section
+.ls-courses-section {
+    margin-bottom: $ls-spacing-xl;
+
+    @media (max-width: 768px) {
         margin-bottom: $ls-spacing-lg;
     }
 }

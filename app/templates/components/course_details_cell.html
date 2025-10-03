@@ -1,0 +1,32 @@
+{% macro course_details_cell(metadata) %}
+<div class="ls-course-details-cell">
+    <!-- Course Title -->
+    <h1 class="ls-course-details-title">{{ metadata.title }}</h1>
+
+    <!-- Course Description -->
+    {% if metadata.description %}
+        <div class="ls-course-details-description">
+            {{ metadata.description }}
+        </div>
+    {% endif %}
+
+    <!-- Course Stats -->
+    <div class="ls-course-details-stats">
+        <div class="ls-course-stat">
+            <span class="ls-stat-value">{{ metadata.total_modules }}</span>
+            <span class="ls-stat-label">Modules</span>
+        </div>
+
+        <div class="ls-course-stat">
+            <span class="ls-stat-value">{{ metadata.total_lessons }}</span>
+            <span class="ls-stat-label">Lessons</span>
+        </div>
+
+        <div class="ls-course-stat">
+            <span class="ls-stat-value">{{ metadata.total_media_duration_seconds }}s</span>
+            <span class="ls-stat-label">Duration</span>
+            <!-- TODO: Add proper duration formatting service -->
+        </div>
+    </div>
+</div>
+{% endmacro %}

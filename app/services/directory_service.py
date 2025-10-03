@@ -2,7 +2,7 @@ import os
 from typing import List
 from app.models.course_model import Course, NodeType, CourseMetadata
 from app.services.content_detection_service import ContentDetectionService
-from app.services.directory_registry_service import DirectoryRegistryService
+from app.services.registry_service import RegistryService
 
 
 class DirectoryService:
@@ -19,7 +19,7 @@ class DirectoryService:
             List[Course]: List of courses and directories found
         """
         courses = []
-        registry_service = DirectoryRegistryService()
+        registry_service = RegistryService()
         
         if not os.path.exists(directory_path):
             return courses
@@ -40,18 +40,31 @@ class DirectoryService:
                     # Format title
                     formatted_title = DirectoryService._format_title(item)
                     
-                    # Check if item is already in registry (unless force_analysis is True)
-                    registry_entry = registry_service.get_registry_entry(formatted_title, item_path)
+                    # Detect content type first to determine registry section
+                    content_type = ContentDetectionService.detect_content_type(item_path) if force_analysis else None
+
+                    # If not forcing analysis, try to get from registry first
+                    if not force_analysis:
+                        # We need to try both sections since we don't know the type yet
+                        registry_entry = None
+                        for node_type in [NodeType.DIRECTORY, NodeType.COURSE]:
+                            entry = registry_service.get_registry_entry(formatted_title, item_path, node_type)
+                            if entry:
+                                registry_entry = entry
+                                content_type = NodeType(entry["node_type"])
+                                break
+                    else:
+                        registry_entry = None
                     
                     if registry_entry and not force_analysis:
                         # Item exists in registry - skip deep analysis and use cached data
                         print(f"Found in registry: {formatted_title} - skipping deep analysis")
                         
                         # Update last accessed timestamp
-                        registry_service.update_last_accessed(formatted_title, item_path)
-                        
+                        registry_service.update_last_accessed(formatted_title, item_path, content_type)
+
                         # Create course from registry data
-                        node_type = NodeType(registry_entry["node_type"])
+                        node_type = content_type
                         
                         # Still need to check for image and calculate progress for now
                         # TODO: consider if it's worth to cache these in the registry
@@ -74,9 +87,10 @@ class DirectoryService:
                     else:
                         # Item not in registry - perform full analysis
                         print(f"Not in registry: {formatted_title} - performing deep analysis")
-                        
-                        # Detect content type (deep analysis)
-                        content_type = ContentDetectionService.detect_content_type(item_path)
+
+                        # Detect content type (deep analysis) if not already detected
+                        if content_type is None:
+                            content_type = ContentDetectionService.detect_content_type(item_path)
                         
                         # Find course image
                         image_path = ContentDetectionService.find_course_image(item_path)

@@ -120,3 +120,18 @@ $ls-z-toast: 10000;
     --ls-z-overlay: #{$ls-z-overlay};
     --ls-z-toast: #{$ls-z-toast};
 }
+
+// Light theme overrides
+body.light-theme {
+    --ls-bg: #ffffff;
+    --ls-panel: #f8fafc;
+    --ls-panel-2: #f1f5f9;
+    --ls-panel-3: #e2e8f0;
+    --ls-panel-4: #cbd5e1;
+    --ls-accent: #0ea5e9;
+    --ls-accent-light: #38bdf8;
+    --ls-accent-dark: #ffffff;
+    --ls-text: #1e293b;
+    --ls-muted: #64748b;
+    --ls-border: #e2e8f0;
+}

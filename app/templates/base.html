@@ -8,8 +8,23 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 
-<body>
+<body class="{% if user_theme == 'light' %}light-theme{% endif %}">
+    <!-- Common Header -->
+    <header class="ls-header">
+        <div class="ls-header-brand">
+            <div class="ls-header-logo">LS</div>
+            <span>Learn Sphere</span>
+        </div>
+        <button id="theme-toggle" class="ls-theme-toggle">
+            ☀️/🌑
+        </button>
+    </header>
+
+    <!-- Page Content -->
     {% block content %}{% endblock %}
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/theme-toggle.js') }}"></script>
 </body>
 
 </html>

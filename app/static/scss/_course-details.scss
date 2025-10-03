@@ -1,0 +1,422 @@
+// Course details page styles with new layout
+.ls-course-details-page {
+    flex: 1;
+    background: var(--ls-bg);
+}
+
+.ls-course-details-main {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: $ls-spacing-xl;
+
+    @media (max-width: 768px) {
+        padding: $ls-spacing-md;
+    }
+}
+
+// Course Details Cell (Purple box)
+.ls-course-details-cell {
+    background: var(--ls-panel);
+    border: 1px solid var(--ls-border);
+    border-radius: $ls-border-radius;
+    padding: $ls-spacing-xl;
+    margin-bottom: $ls-spacing-xl;
+
+    @media (max-width: 768px) {
+        padding: $ls-spacing-lg;
+        margin-bottom: $ls-spacing-lg;
+    }
+}
+
+.ls-course-details-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--ls-text);
+    margin-bottom: $ls-spacing-lg;
+    line-height: 1.2;
+
+    @media (max-width: 768px) {
+        font-size: 2rem;
+        margin-bottom: $ls-spacing-md;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 1.75rem;
+    }
+}
+
+.ls-course-details-description {
+    font-size: $ls-font-size-base;
+    color: var(--ls-text);
+    line-height: 1.6;
+    margin-bottom: $ls-spacing-lg;
+
+    @media (max-width: 768px) {
+        margin-bottom: $ls-spacing-md;
+    }
+}
+
+.ls-course-details-stats {
+    display: flex;
+    gap: $ls-spacing-xl;
+    justify-content: center;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        gap: $ls-spacing-md;
+        align-items: center;
+    }
+
+    @media (max-width: 480px) {
+        gap: $ls-spacing-sm;
+    }
+}
+
+.ls-course-stat {
+    text-align: center;
+    min-width: 100px;
+
+    .ls-stat-value {
+        display: block;
+        font-size: $ls-font-size-xl;
+        font-weight: 700;
+        color: var(--ls-accent);
+        margin-bottom: $ls-spacing-xs;
+    }
+
+    .ls-stat-label {
+        font-size: $ls-font-size-sm;
+        color: var(--ls-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+}
+
+// Modules Section
+.ls-modules-section {
+    margin-top: $ls-spacing-xl;
+
+    @media (max-width: 768px) {
+        margin-top: $ls-spacing-lg;
+    }
+}
+
+.ls-modules-title {
+    font-size: $ls-font-size-xl;
+    font-weight: 600;
+    color: var(--ls-text);
+    margin-bottom: $ls-spacing-lg;
+    text-align: center;
+
+    @media (max-width: 768px) {
+        font-size: $ls-font-size-xl;
+        margin-bottom: $ls-spacing-md;
+    }
+}
+
+// Lessons Section
+.ls-lessons-section {
+    margin-top: $ls-spacing-xl;
+
+    @media (max-width: 768px) {
+        margin-top: $ls-spacing-lg;
+    }
+}
+
+.ls-lessons-title {
+    font-size: $ls-font-size-xl;
+    font-weight: 600;
+    color: var(--ls-text);
+    margin-bottom: $ls-spacing-lg;
+    text-align: center;
+
+    @media (max-width: 768px) {
+        font-size: $ls-font-size-xl;
+        margin-bottom: $ls-spacing-md;
+    }
+}
+
+.ls-modules-list {
+    display: flex;
+    flex-direction: column;
+    gap: $ls-spacing-lg;
+
+    @media (max-width: 768px) {
+        gap: $ls-spacing-md;
+    }
+}
+
+// Module Cell (Green box)
+.ls-module-cell {
+    border: 1px solid var(--ls-border);
+    border-radius: $ls-border-radius;
+    overflow: hidden;
+    background: var(--ls-panel-2);
+
+    @media (min-width: 769px) {
+        display: flex;
+        flex-direction: row;
+    }
+}
+
+// Module Number Column (Left column on desktop)
+.ls-module-number-column {
+    cursor: pointer;
+    transition: background-color $ls-transition-fast;
+    background: var(--ls-panel);
+
+    &:hover {
+        background: var(--ls-panel-3);
+    }
+
+    &.ls-module-number-expanded {
+        background: var(--ls-panel);
+    }
+
+    @media (min-width: 769px) {
+        max-width: 300px;
+        min-width: 300px;
+        padding: $ls-spacing-lg;
+        display: flex;
+        align-items: flex-start;
+    }
+
+    @media (max-width: 768px) {
+        padding: $ls-spacing-md $ls-spacing-md $ls-spacing-xs $ls-spacing-md;
+    }
+}
+
+// Module Content Column (Right column on desktop)
+.ls-module-content-column {
+    @media (min-width: 769px) {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.ls-module-header {
+    padding: $ls-spacing-lg;
+    background: var(--ls-panel);
+    cursor: pointer;
+    transition: background-color $ls-transition-fast;
+
+    &:hover {
+        background: var(--ls-panel-3);
+    }
+
+    &.ls-module-header-expanded {
+        background: var(--ls-panel);
+    }
+
+    @media (max-width: 768px) {
+        padding: $ls-spacing-xs $ls-spacing-md $ls-spacing-md $ls-spacing-md;
+    }
+}
+
+.ls-module-header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: $ls-spacing-sm;
+    }
+}
+
+.ls-module-number {
+    font-size: $ls-font-size-base;
+    font-weight: 700;
+    color: var(--ls-accent);
+
+    @media (max-width: 768px) {
+        font-size: $ls-font-size-sm;
+    }
+}
+
+.ls-module-title {
+    font-size: $ls-font-size-lg;
+    font-weight: 600;
+    color: var(--ls-text);
+    margin: 0;
+
+    @media (max-width: 768px) {
+        font-size: $ls-font-size-base;
+    }
+}
+
+.ls-module-info {
+    display: flex;
+    align-items: center;
+    gap: $ls-spacing-sm;
+
+    @media (max-width: 768px) {
+        align-self: flex-end;
+    }
+}
+
+.ls-module-badge {
+    padding: $ls-spacing-xs $ls-spacing-sm;
+    border-radius: $ls-border-radius-sm;
+    font-size: $ls-font-size-xs;
+    font-weight: 500;
+}
+
+.ls-duration-badge {
+    background: var(--ls-info);
+    color: white;
+}
+
+.ls-completion-badge {
+    &.ls-completed {
+        background: var(--ls-success);
+        color: white;
+    }
+
+    &.ls-incomplete {
+        background: var(--ls-muted);
+        color: white;
+    }
+}
+
+.ls-module-toggle-icon {
+    font-size: $ls-font-size-sm;
+    color: var(--ls-muted);
+    transition: transform $ls-transition-fast;
+}
+
+// Module Lessons (collapsible)
+.ls-module-lessons {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height $ls-transition-smooth;
+
+    &.ls-module-expanded {
+        max-height: 2000px; // Large enough for content
+    }
+}
+
+.ls-lessons-list {
+    padding: $ls-spacing-md;
+    display: flex;
+    flex-direction: column;
+    gap: $ls-spacing-sm;
+
+    @media (max-width: 768px) {
+        padding: $ls-spacing-sm;
+    }
+}
+
+.ls-module-empty {
+    padding: $ls-spacing-lg;
+    text-align: center;
+    color: var(--ls-muted);
+    font-style: italic;
+}
+
+// Lesson Cell (Red box)
+.ls-lesson-cell {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $ls-spacing-md;
+    background: var(--ls-panel);
+    border: 1px solid var(--ls-border);
+    border-radius: $ls-border-radius-sm;
+    transition: background-color $ls-transition-fast;
+    text-decoration: none !important;
+    color: inherit;
+    cursor: pointer;
+
+    &:hover {
+        background: var(--ls-panel-3);
+        text-decoration: none !important;
+    }
+
+    &:visited,
+    &:active,
+    &:focus {
+        text-decoration: none !important;
+        color: inherit;
+    }
+
+    * {
+        text-decoration: none !important;
+    }
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: $ls-spacing-sm;
+    }
+}
+
+.ls-lesson-title {
+    font-weight: 500;
+    color: var(--ls-text);
+    flex: 1;
+    text-decoration: none !important;
+
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+}
+
+.ls-lesson-info {
+    display: flex;
+    align-items: center;
+    gap: $ls-spacing-xs;
+
+    @media (max-width: 768px) {
+        align-self: flex-end;
+    }
+}
+
+.ls-lesson-badge {
+    padding: $ls-spacing-xs $ls-spacing-sm;
+    border-radius: $ls-border-radius-sm;
+    font-size: $ls-font-size-xs;
+    font-weight: 500;
+}
+
+.ls-type-badge {
+    &.ls-type-video {
+        background: var(--ls-error);
+        color: white;
+    }
+
+    &.ls-type-audio {
+        background: var(--ls-warning);
+        color: white;
+    }
+
+    &.ls-type-text {
+        background: var(--ls-info);
+        color: white;
+    }
+
+    &.ls-type-unknown {
+        background: var(--ls-muted);
+        color: white;
+    }
+}
+
+// Empty state
+.ls-course-empty {
+    text-align: center;
+    padding: $ls-spacing-xl 0;
+    color: var(--ls-muted);
+
+    .ls-course-empty-title {
+        font-size: $ls-font-size-lg;
+        margin-bottom: $ls-spacing-sm;
+        color: var(--ls-text);
+    }
+
+    .ls-course-empty-message {
+        font-size: $ls-font-size-base;
+        line-height: 1.6;
+    }
+}

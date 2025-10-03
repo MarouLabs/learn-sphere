@@ -1,0 +1,59 @@
+{% from "components/lesson_cell.html" import lesson_cell %}
+
+{% macro module_cell(module, course_id) %}
+<div class="ls-module-cell">
+    <!-- Module Number Column (Left) -->
+    <div class="ls-module-number-column" onclick="toggleModule('module-{{ module.module_number }}')">
+        <span class="ls-module-number">Module {{ module.module_number }}</span>
+    </div>
+
+    <!-- Module Content Column (Right) -->
+    <div class="ls-module-content-column">
+        <!-- Module Header (clickable to toggle) -->
+        <div class="ls-module-header" onclick="toggleModule('module-{{ module.module_number }}')">
+            <div class="ls-module-header-content">
+                <!-- Module Title -->
+                <h3 class="ls-module-title">{{ module.title }}</h3>
+
+                <!-- Module Info -->
+                <div class="ls-module-info">
+                    <!-- Duration Badge -->
+                    {% if module.total_duration_seconds > 0 %}
+                        <span class="ls-module-badge ls-duration-badge">
+                            {{ module.total_duration_seconds }}s
+                            <!-- TODO: Add proper duration formatting service -->
+                        </span>
+                    {% endif %}
+
+                    <!-- Completion Badge -->
+                    <span class="ls-module-badge ls-completion-badge {% if module.completed %}ls-completed{% else %}ls-incomplete{% endif %}">
+                        {% if module.completed %}
+                            ✓
+                        {% else %}
+                            ●
+                        {% endif %}
+                    </span>
+
+                    <!-- Collapse/Expand Icon -->
+                    <span class="ls-module-toggle-icon">▼</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Module Lessons (collapsible) -->
+        <div class="ls-module-lessons" id="module-{{ module.module_number }}">
+            {% if module.lessons %}
+                <div class="ls-lessons-list">
+                    {% for lesson in module.lessons %}
+                        {{ lesson_cell(lesson, course_id, module.directory_name) }}
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="ls-module-empty">
+                    No lessons found in this module.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endmacro %}

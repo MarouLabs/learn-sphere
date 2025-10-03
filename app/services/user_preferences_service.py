@@ -38,6 +38,7 @@ class UserPreferencesService:
             },
             "video_playback_speed": 1.0,
             "audio_playback_speed": 1.0,
+            "theme": "light",
         }
 
         # Ensure the data directory exists
@@ -65,6 +66,7 @@ class UserPreferencesService:
             )
             preferences.setdefault("video_playback_speed", 1.0)
             preferences.setdefault("audio_playback_speed", 1.0)
+            preferences.setdefault("theme", "light")
 
             return preferences
 
@@ -136,3 +138,14 @@ class UserPreferencesService:
             "video": preferences.get("video_playback_speed", 1.0),
             "audio": preferences.get("audio_playback_speed", 1.0),
         }
+
+    def update_theme(self, theme: str):
+        """Update the theme preference."""
+        preferences = self.load_preferences()
+        preferences["theme"] = theme
+        self.save_preferences(preferences)
+
+    def get_theme(self) -> str:
+        """Get the current theme preference."""
+        preferences = self.load_preferences()
+        return preferences.get("theme", "light")

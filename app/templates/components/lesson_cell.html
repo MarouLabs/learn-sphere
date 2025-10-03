@@ -1,0 +1,42 @@
+{% macro lesson_cell(lesson, course_id, module_directory=None) %}
+{% set lesson_filename = lesson.file_path.split('/')[-1] if lesson.file_path else '' %}
+{% set lesson_relative_path = (module_directory ~ '/' ~ lesson_filename) if module_directory else lesson_filename %}
+<a href="{{ url_for('main.lesson_view', course_id=course_id, lesson_path=lesson_relative_path) }}" class="ls-lesson-cell">
+    <!-- Lesson Title -->
+    <div class="ls-lesson-title">{{ lesson.title }}</div>
+
+    <!-- Lesson Info -->
+    <div class="ls-lesson-info">
+        <!-- Duration Badge (only for video/audio) -->
+        {% if lesson.lesson_type.value in ['video', 'audio'] and lesson.duration_seconds > 0 %}
+            <span class="ls-lesson-badge ls-duration-badge">
+                {{ lesson.duration_seconds }}s
+                <!-- TODO: Add proper duration formatting service -->
+            </span>
+        {% endif %}
+
+        <!-- Lesson Type Badge -->
+        <span class="ls-lesson-badge ls-type-badge ls-type-{{ lesson.lesson_type.value }}">
+            {% if lesson.lesson_type.value == 'video' %}
+                Video
+            {% elif lesson.lesson_type.value == 'audio' %}
+                Audio
+            {% elif lesson.lesson_type.value == 'text' %}
+                <!-- TODO: Add Url lesson type-->
+                Text
+            {% else %}
+                File
+            {% endif %}
+        </span>
+
+        <!-- Completion Badge -->
+        <span class="ls-lesson-badge ls-completion-badge {% if lesson.completed %}ls-completed{% else %}ls-incomplete{% endif %}">
+            {% if lesson.completed %}
+                ✓
+            {% else %}
+                ●
+            {% endif %}
+        </span>
+    </div>
+</a>
+{% endmacro %}

@@ -1,0 +1,59 @@
+// Common header styles
+.ls-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $ls-spacing-lg $ls-spacing-xl;
+    border-bottom: 1px solid var(--ls-border);
+    background: var(--ls-panel);
+    max-width: 1280px;
+    margin: 0 auto;
+    width: 100%;
+
+    @media (max-width: 768px) {
+        padding: $ls-spacing-md;
+    }
+}
+
+.ls-header-brand {
+    display: flex;
+    align-items: center;
+    gap: $ls-spacing-sm;
+    font-weight: 700;
+    font-size: $ls-font-size-lg;
+    color: var(--ls-text);
+    letter-spacing: 0.3px;
+}
+
+.ls-header-logo {
+    width: $ls-logo-size;
+    height: $ls-logo-size;
+    display: grid;
+    place-items: center;
+    border-radius: $ls-spacing-6;
+    background: var(--ls-accent);
+    color: var(--ls-accent-dark);
+    font-weight: 900;
+    font-size: $ls-font-size-md;
+}
+
+.ls-theme-toggle {
+    padding: $ls-spacing-sm $ls-spacing-md;
+    border: 1px solid var(--ls-border);
+    background: transparent;
+    color: var(--ls-text);
+    border-radius: $ls-border-radius;
+    cursor: pointer;
+    transition: all $ls-transition-fast;
+    font-size: $ls-font-size-base;
+
+    &:hover {
+        border-color: var(--ls-accent);
+        background: rgba(56, 189, 248, 0.1); // Using actual color value for rgba
+    }
+
+    @media (max-width: 768px) {
+        padding: $ls-spacing-xs $ls-spacing-sm;
+        font-size: $ls-font-size-sm;
+    }
+}

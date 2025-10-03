@@ -4,6 +4,7 @@
 
 // Layout and components
 @import 'layout';
+@import 'header';
 @import 'buttons';
 @import 'brand';
 @import 'panels';
@@ -17,9 +18,10 @@
 @import 'file-preview';
 @import 'course-browser';
 @import 'course-cell';
+@import 'directory-cell';
 @import 'home';
+@import 'course-details';
 
 // Utilities
 @import 'animations';
 @import 'overrides';
-@import 'responsive';

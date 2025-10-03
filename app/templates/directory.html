@@ -2,14 +2,21 @@
 {% from "components/course_cell.html" import course_cell %}
 {% from "components/directory_cell.html" import directory_cell %}
 
-{% block title %}Learn Sphere - Home{% endblock %}
+{% block title %}{{ directory_title }} - Learn Sphere{% endblock %}
 
 {% block content %}
 <div class="ls-home-container">
     <!-- Main content -->
     <main class="ls-home-content">
+        <!-- Navigation breadcrumb -->
+        <nav class="ls-breadcrumb">
+            <a href="/" class="ls-breadcrumb-link">Home</a>
+            <span class="ls-breadcrumb-separator">/</span>
+            <span class="ls-breadcrumb-current">{{ directory_title }}</span>
+        </nav>
+
         <!-- Title -->
-        <h1 class="ls-home-title">Root Directory</h1>
+        <h1 class="ls-home-title">{{ directory_title }}</h1>
 
         {% set directories = courses|selectattr('node_type.value', 'equalto', 'directory')|list %}
         {% set actual_courses = courses|rejectattr('node_type.value', 'equalto', 'directory')|list %}
@@ -41,10 +48,9 @@
         <!-- Empty state -->
         {% if not courses %}
             <div class="ls-home-empty">
-                <div class="ls-home-empty-title">No Courses Found</div>
+                <div class="ls-home-empty-title">Empty Directory</div>
                 <div class="ls-home-empty-message">
-                    Please check your COURSES_ROOT_DIRECTORY_ABS_PATH configuration<br>
-                    and ensure the directory contains course folders.
+                    This directory doesn't contain any courses or subdirectories.
                 </div>
             </div>
         {% endif %}

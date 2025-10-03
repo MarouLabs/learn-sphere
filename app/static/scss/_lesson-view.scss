@@ -1,3 +1,56 @@
+// Back button
+.ls-back-button-container {
+    margin-bottom: $ls-spacing-lg;
+}
+
+.ls-back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: $ls-spacing-xs;
+    padding: $ls-spacing-sm $ls-spacing-md;
+    background: var(--ls-panel);
+    border: 1px solid var(--ls-border);
+    border-radius: $ls-border-radius-sm;
+    color: var(--ls-text);
+    text-decoration: none;
+    font-size: $ls-font-size-sm;
+    transition: all $ls-transition-fast;
+    cursor: pointer;
+
+    &:hover {
+        background: var(--ls-panel-3);
+        border-color: var(--ls-accent);
+        color: var(--ls-accent);
+    }
+}
+
+// Lesson view page
+.ls-lesson-view-page {
+    flex: 1;
+    background: var(--ls-bg);
+}
+
+.ls-lesson-view-main {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: $ls-spacing-xl;
+
+    @media (max-width: 768px) {
+        padding: $ls-spacing-md;
+    }
+}
+
+.ls-lesson-view-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--ls-text);
+    margin-bottom: $ls-spacing-lg;
+
+    @media (max-width: 768px) {
+        font-size: 1.5rem;
+    }
+}
+
 .ls-side-list {
     display: flex;
     flex-direction: column;

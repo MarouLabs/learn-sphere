@@ -1,5 +1,5 @@
 {% macro course_cell(course) %}
-<a href="/course/{{ course.id }}" class="ls-course-cell">
+<a href="{% if course.node_type.value == 'directory' %}/directory/{{ course.id }}{% else %}/course/{{ course.id }}{% endif %}" class="ls-course-cell">
     <!-- Course Image/Thumbnail -->
     <div class="ls-course-cell-image 
         {% if course.metadata.image %}

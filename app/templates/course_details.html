@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% from "components/course_details_cell.html" import course_details_cell %}
+{% from "components/module_cell.html" import module_cell %}
+{% from "components/lesson_cell.html" import lesson_cell %}
+
+{% block title %}{{ course_structure.metadata.title }} - Learn Sphere{% endblock %}
+
+{% block content %}
+<div class="ls-course-details-page">
+    <!-- Main content -->
+    <main class="ls-course-details-main">
+        <!-- Navigation breadcrumb -->
+        <nav class="ls-breadcrumb">
+            <a href="/" class="ls-breadcrumb-link">Home</a>
+            <span class="ls-breadcrumb-separator">/</span>
+            <span class="ls-breadcrumb-current">{{ course_structure.metadata.title }}</span>
+        </nav>
+
+        <!-- Course Details Cell -->
+        {{ course_details_cell(course_structure.metadata) }}
+
+        <!-- Modules & Lessons -->
+        {% if course_structure.modules %}
+            <div class="ls-modules-section">
+                <h2 class="ls-modules-title">Modules & Lessons</h2>
+                <div class="ls-modules-list">
+                    {% for module in course_structure.modules %}
+                        {{ module_cell(module, course_id) }}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- Course Lessons (Direct lessons in course root) -->
+        {% if course_structure.lessons %}
+            <div class="ls-lessons-section">
+                <h2 class="ls-lessons-title">Lessons</h2>
+                <div class="ls-lessons-list">
+                    {% for lesson in course_structure.lessons %}
+                        {{ lesson_cell(lesson, course_id) }}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- Empty state when no content -->
+        {% if not course_structure.modules and not course_structure.lessons %}
+            <div class="ls-course-empty">
+                <div class="ls-course-empty-title">No Content Found</div>
+                <div class="ls-course-empty-message">
+                    This course doesn't contain any modules or lessons yet.
+                </div>
+            </div>
+        {% endif %}
+    </main>
+</div>
+
+<!-- Include module toggle JavaScript -->
+<script src="{{ url_for('static', filename='js/module-toggle.js') }}"></script>
+{% endblock %}

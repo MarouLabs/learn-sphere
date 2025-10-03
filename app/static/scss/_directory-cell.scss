@@ -1,0 +1,58 @@
+// Directory row cells
+.ls-directories-list {
+    display: flex;
+    flex-direction: column;
+    gap: $ls-spacing-sm;
+    margin-bottom: $ls-spacing-lg;
+}
+
+.ls-directory-row-cell {
+    display: flex;
+    align-items: center;
+    gap: $ls-spacing-md;
+    padding: $ls-spacing-md;
+    background: var(--ls-panel);
+    border: 1px solid var(--ls-border);
+    border-radius: $ls-border-radius;
+    transition: background-color $ls-transition-fast;
+    text-decoration: none;
+    color: inherit;
+
+    &:hover {
+        background: var(--ls-panel-3);
+        text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+        padding: $ls-spacing-sm $ls-spacing-md;
+    }
+}
+
+.ls-directory-row-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ls-accent);
+    flex-shrink: 0;
+
+    svg {
+        width: 24px;
+        height: 24px;
+
+        @media (max-width: 768px) {
+            width: 20px;
+            height: 20px;
+        }
+    }
+}
+
+.ls-directory-row-title {
+    font-size: $ls-font-size-base;
+    font-weight: 500;
+    color: var(--ls-text);
+    flex: 1;
+
+    @media (max-width: 768px) {
+        font-size: $ls-font-size-sm;
+    }
+}
