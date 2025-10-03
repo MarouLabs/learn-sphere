@@ -9,7 +9,7 @@
     margin: 0 auto;
     padding: $ls-spacing-xl;
 
-    @media (max-width: 768px) {
+    @media (max-width: $ls-breakpoint-mobile-max) {
         padding: $ls-spacing-md;
     }
 }
@@ -22,7 +22,7 @@
     padding: $ls-spacing-xl;
     margin-bottom: $ls-spacing-xl;
 
-    @media (max-width: 768px) {
+    @media (max-width: $ls-breakpoint-mobile-max) {
         padding: $ls-spacing-lg;
         margin-bottom: $ls-spacing-lg;
     }
@@ -35,7 +35,7 @@
     margin-bottom: $ls-spacing-lg;
     line-height: 1.2;
 
-    @media (max-width: 768px) {
+    @media (max-width: $ls-breakpoint-mobile-max) {
         font-size: 2rem;
         margin-bottom: $ls-spacing-md;
     }
@@ -51,7 +51,7 @@
     line-height: 1.6;
     margin-bottom: $ls-spacing-lg;
 
-    @media (max-width: 768px) {
+    @media (max-width: $ls-breakpoint-mobile-max) {
         margin-bottom: $ls-spacing-md;
     }
 }
@@ -61,7 +61,7 @@
     gap: $ls-spacing-xl;
     justify-content: center;
 
-    @media (max-width: 768px) {
+    @media (max-width: $ls-breakpoint-mobile-max) {
         flex-direction: column;
         gap: $ls-spacing-md;
         align-items: center;
@@ -96,7 +96,7 @@
 .ls-modules-section {
     margin-top: $ls-spacing-xl;
 
-    @media (max-width: 768px) {
+    @media (max-width: $ls-breakpoint-mobile-max) {
         margin-top: $ls-spacing-lg;
     }
 }
@@ -108,7 +108,7 @@
     margin-bottom: $ls-spacing-lg;
     text-align: center;
 
-    @media (max-width: 768px) {
+    @media (max-width: $ls-breakpoint-mobile-max) {
         font-size: $ls-font-size-xl;
         margin-bottom: $ls-spacing-md;
     }
@@ -118,7 +118,7 @@
 .ls-lessons-section {
     margin-top: $ls-spacing-xl;
 
-    @media (max-width: 768px) {
+    @media (max-width: $ls-breakpoint-mobile-max) {
         margin-top: $ls-spacing-lg;
     }
 }
@@ -130,7 +130,7 @@
     margin-bottom: $ls-spacing-lg;
     text-align: center;
 
-    @media (max-width: 768px) {
+    @media (max-width: $ls-breakpoint-mobile-max) {
         font-size: $ls-font-size-xl;
         margin-bottom: $ls-spacing-md;
     }
@@ -141,7 +141,7 @@
     flex-direction: column;
     gap: $ls-spacing-lg;
 
-    @media (max-width: 768px) {
+    @media (max-width: $ls-breakpoint-mobile-max) {
         gap: $ls-spacing-md;
     }
 }
@@ -153,7 +153,7 @@
     overflow: hidden;
     background: var(--ls-panel-2);
 
-    @media (min-width: 769px) {
+    @media (min-width: $ls-breakpoint-mobile-max + 1) {
         display: flex;
         flex-direction: row;
     }
@@ -173,7 +173,7 @@
         background: var(--ls-panel);
     }
 
-    @media (min-width: 769px) {
+    @media (min-width: $ls-breakpoint-mobile-max + 1) {
         max-width: 300px;
         min-width: 300px;
         padding: $ls-spacing-lg;
@@ -181,14 +181,14 @@
         align-items: flex-start;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: $ls-breakpoint-mobile-max) {
         padding: $ls-spacing-md $ls-spacing-md $ls-spacing-xs $ls-spacing-md;
     }
 }
 
 // Module Content Column (Right column on desktop)
 .ls-module-content-column {
-    @media (min-width: 769px) {
+    @media (min-width: $ls-breakpoint-mobile-max + 1) {
         flex: 1;
         display: flex;
         flex-direction: column;
@@ -209,7 +209,7 @@
         background: var(--ls-panel);
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: $ls-breakpoint-mobile-max) {
         padding: $ls-spacing-xs $ls-spacing-md $ls-spacing-md $ls-spacing-md;
     }
 }
@@ -219,7 +219,7 @@
     justify-content: space-between;
     align-items: center;
 
-    @media (max-width: 768px) {
+    @media (max-width: $ls-breakpoint-mobile-max) {
         flex-direction: column;
         align-items: flex-start;
         gap: $ls-spacing-sm;
@@ -231,7 +231,7 @@
     font-weight: 700;
     color: var(--ls-accent);
 
-    @media (max-width: 768px) {
+    @media (max-width: $ls-breakpoint-mobile-max) {
         font-size: $ls-font-size-sm;
     }
 }
@@ -242,7 +242,7 @@
     color: var(--ls-text);
     margin: 0;
 
-    @media (max-width: 768px) {
+    @media (max-width: $ls-breakpoint-mobile-max) {
         font-size: $ls-font-size-base;
     }
 }
@@ -252,7 +252,7 @@
     align-items: center;
     gap: $ls-spacing-sm;
 
-    @media (max-width: 768px) {
+    @media (max-width: $ls-breakpoint-mobile-max) {
         align-self: flex-end;
     }
 }
@@ -304,7 +304,7 @@
     flex-direction: column;
     gap: $ls-spacing-sm;
 
-    @media (max-width: 768px) {
+    @media (max-width: $ls-breakpoint-mobile-max) {
         padding: $ls-spacing-sm;
     }
 }
@@ -346,7 +346,7 @@
         text-decoration: none !important;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: $ls-breakpoint-mobile-max) {
         flex-direction: column;
         align-items: flex-start;
         gap: $ls-spacing-sm;
@@ -359,7 +359,7 @@
     flex: 1;
     text-decoration: none !important;
 
-    @media (max-width: 768px) {
+    @media (max-width: $ls-breakpoint-mobile-max) {
         width: 100%;
     }
 }
@@ -369,7 +369,7 @@
     align-items: center;
     gap: $ls-spacing-xs;
 
-    @media (max-width: 768px) {
+    @media (max-width: $ls-breakpoint-mobile-max) {
         align-self: flex-end;
     }
 }

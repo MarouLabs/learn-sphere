@@ -64,6 +64,11 @@ $ls-grid-gap: 10px;
 $ls-transition-fast: 0.2s ease;
 $ls-transition-smooth: 0.3s ease;
 
+// Breakpoints
+$ls-breakpoint-mobile-max: 768px;
+$ls-breakpoint-tablet-max: 1024px;
+$ls-breakpoint-desktop-min: 1025px;
+
 // Z-index
 $ls-z-overlay: 40;
 $ls-z-toast: 10000;

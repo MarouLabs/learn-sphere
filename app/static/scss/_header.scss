@@ -10,7 +10,7 @@
     margin: 0 auto;
     width: 100%;
 
-    @media (max-width: 768px) {
+    @media (max-width: $ls-breakpoint-mobile-max) {
         padding: $ls-spacing-md;
     }
 }
@@ -52,7 +52,7 @@
         background: rgba(56, 189, 248, 0.1); // Using actual color value for rgba
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: $ls-breakpoint-mobile-max) {
         padding: $ls-spacing-xs $ls-spacing-sm;
         font-size: $ls-font-size-sm;
     }

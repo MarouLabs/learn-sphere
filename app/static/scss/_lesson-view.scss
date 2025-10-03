@@ -35,7 +35,7 @@
     margin: 0 auto;
     padding: $ls-spacing-xl;
 
-    @media (max-width: 768px) {
+    @media (max-width: $ls-breakpoint-mobile-max) {
         padding: $ls-spacing-md;
     }
 }
@@ -46,7 +46,7 @@
     color: var(--ls-text);
     margin-bottom: $ls-spacing-lg;
 
-    @media (max-width: 768px) {
+    @media (max-width: $ls-breakpoint-mobile-max) {
         font-size: 1.5rem;
     }
 }
