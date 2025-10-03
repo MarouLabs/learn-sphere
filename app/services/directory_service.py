@@ -112,7 +112,7 @@ class DirectoryService:
                         course.metadata = metadata
                         course.progress.progress_percent = progress_percent
                         
-                        # Register the item in the registry for future use (color is automatically generated)
+                        # Register the item in the registry for future use
                         registry_service.register_item(formatted_title, item_path, content_type)
                     
                     courses.append(course)

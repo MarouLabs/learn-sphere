@@ -3,11 +3,10 @@ import os
 from datetime import datetime
 from typing import Dict, Optional, Any
 from app.models.course_model import NodeType
-from app.services.color_service import ColorService
 
 
 class RegistryService:
-    """Unified service to manage the registry for both directories and courses with their metadata, node types, and colors."""
+    """Unified service to manage the registry for both directories and courses with their metadata and node types."""
 
     def __init__(self, registry_path: str = "app/data/registry.json"):
         self.registry_path = registry_path
@@ -27,7 +26,7 @@ class RegistryService:
             "metadata": {
                 "version": "1.0",
                 "last_updated": None,
-                "description": "Unified registry for directories and courses with their metadata, node types, and colors"
+                "description": "Unified registry for directories and courses with their metadata and node types"
             }
         }
         self._save_registry(registry_data)
@@ -72,19 +71,15 @@ class RegistryService:
         return registry_data[section].get(registry_key)
 
     def register_item(self, title: str, path: str, node_type: NodeType) -> Dict[str, Any]:
-        """Register a new item in the registry with color from ColorService."""
+        """Register a new item in the registry."""
         registry_data = self._load_registry()
         section = self._get_registry_section(node_type)
         registry_key = f"{title}|{path}"
-
-        # Get color from ColorService
-        color = ColorService.generate_random_color(title)
 
         entry = {
             "title": title,
             "path": path,
             "node_type": node_type.value,
-            "color": color,
             "registered_at": datetime.now().isoformat(),
             "last_accessed": datetime.now().isoformat()
         }
@@ -103,19 +98,6 @@ class RegistryService:
         if registry_key in registry_data[section]:
             registry_data[section][registry_key]["last_accessed"] = datetime.now().isoformat()
             self._save_registry(registry_data)
-
-    def get_color(self, title: str, path: str, node_type: NodeType) -> str:
-        """Get color for an item, registering it if not already registered."""
-        entry = self.get_registry_entry(title, path, node_type)
-
-        if entry:
-            # Update last accessed and return existing color
-            self.update_last_accessed(title, path, node_type)
-            return entry["color"]
-        else:
-            # Register new item (which gets color from ColorService) and return its color
-            entry = self.register_item(title, path, node_type)
-            return entry["color"]
 
     def get_all_directories(self) -> Dict[str, Any]:
         """Get all directory registry entries."""

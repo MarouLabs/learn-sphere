@@ -13,15 +13,6 @@ def create_app():
     )
     assets.register('scss_all', scss)
 
-    # Register template filters
-    from app.services.registry_service import RegistryService
-
-    @app.template_filter('course_color')
-    def course_color_filter(course):
-        """Template filter to get course color."""
-        registry_service = RegistryService()
-        return registry_service.get_color(course.title, course.path or "", course.node_type)
-
     # Import and register modular routes
     from app.routes import home_route, directory_route, course_details_route, lesson_route
     app.register_blueprint(home_route.bp)

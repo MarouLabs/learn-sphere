@@ -1,18 +1,15 @@
 {% macro course_cell(course) %}
 <a href="{% if course.node_type.value == 'directory' %}/directory/{{ course.id }}{% else %}/course/{{ course.id }}{% endif %}" class="ls-course-cell">
     <!-- Course Image/Thumbnail -->
-    <div class="ls-course-cell-image 
+    <div class="ls-course-cell-image
         {% if course.metadata.image %}
             ls-has-image
         {% elif course.node_type.value == 'directory' %}
             ls-directory-fallback
         {% else %}
             ls-course-fallback
-        {% endif %}"
-        {% if not course.metadata.image %}
-            style="background-color: {{ course|course_color }};"
-        {% endif %}>
-        
+        {% endif %}">
+
         {% if course.metadata.image %}
             <img src="{{ course.metadata.image }}" alt="{{ course.title }}" loading="lazy">
         {% elif course.node_type.value == 'directory' %}
