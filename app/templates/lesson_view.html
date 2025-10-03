@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from "components/breadcrumb.html" import breadcrumb_nav %}
 
 {% block title %}{{ lesson_title }} - Learn Sphere{% endblock %}
 
@@ -7,19 +8,12 @@
     <main class="ls-lesson-view-main">
         <!-- Back Button -->
         <div class="ls-back-button-container">
-            <a href="{{ url_for('main.course_details', course_id=course_id) }}" class="ls-back-button">
+            <a href="{{ url_for('course.details', course_id=course_id) }}" class="ls-back-button">
                 ← Back to Course
             </a>
         </div>
 
-        <!-- Navigation breadcrumb -->
-        <nav class="ls-breadcrumb">
-            <a href="/" class="ls-breadcrumb-link">Home</a>
-            <span class="ls-breadcrumb-separator">/</span>
-            <a href="{{ url_for('main.course_details', course_id=course_id) }}" class="ls-breadcrumb-link">{{ course_title }}</a>
-            <span class="ls-breadcrumb-separator">/</span>
-            <span class="ls-breadcrumb-current">{{ lesson_title }}</span>
-        </nav>
+        {{ breadcrumb_nav(breadcrumbs) }}
 
         <!-- Lesson Title -->
         <h1 class="ls-lesson-view-title">{{ lesson_title }}</h1>

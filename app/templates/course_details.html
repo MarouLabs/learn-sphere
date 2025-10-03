@@ -2,6 +2,7 @@
 {% from "components/course_details_cell.html" import course_details_cell %}
 {% from "components/module_cell.html" import module_cell %}
 {% from "components/lesson_cell.html" import lesson_cell %}
+{% from "components/breadcrumb.html" import breadcrumb_nav %}
 
 {% block title %}{{ course_structure.metadata.title }} - Learn Sphere{% endblock %}
 
@@ -9,12 +10,7 @@
 <div class="ls-course-details-page">
     <!-- Main content -->
     <main class="ls-course-details-main">
-        <!-- Navigation breadcrumb -->
-        <nav class="ls-breadcrumb">
-            <a href="/" class="ls-breadcrumb-link">Home</a>
-            <span class="ls-breadcrumb-separator">/</span>
-            <span class="ls-breadcrumb-current">{{ course_structure.metadata.title }}</span>
-        </nav>
+        {{ breadcrumb_nav(breadcrumbs) }}
 
         <!-- Course Details Cell -->
         {{ course_details_cell(course_structure.metadata) }}

@@ -157,6 +157,82 @@ class RegistryService:
     def clear_all_entries(self) -> None:
         """Clear all registry entries."""
         self._create_empty_registry()
+        
+    def build_breadcrumbs_from_path(self, item_path: str, item_title: str) -> list[Dict[str, Any]]:
+        """
+        Build breadcrumb navigation by parsing the item path and looking up entries in registry.
+
+        Args:
+            item_path: Full absolute path to the current item
+            item_title: Title of the current item (for the last breadcrumb)
+
+        Returns:
+            List of breadcrumb dictionaries with 'title' and 'url' keys
+        """
+        breadcrumbs = [{"title": "Home", "url": "/"}]
+
+        # Find the root path by looking at all registry entries and finding the shortest common ancestor
+        all_paths = []
+        for entry in self.get_all_directories().values():
+            all_paths.append(entry["path"])
+        for entry in self.get_all_courses().values():
+            all_paths.append(entry["path"])
+
+        if not all_paths:
+            # No registry entries, just return home
+            breadcrumbs.append({"title": item_title, "url": None})
+            return breadcrumbs
+
+        # Find common root by getting the directory that's parent to all paths
+        root_path = os.path.commonpath(all_paths)
+
+        # Get relative path from root
+        try:
+            relative_path = os.path.relpath(item_path, root_path)
+        except (ValueError, TypeError):
+            # Can't determine relative path, just show item title
+            breadcrumbs.append({"title": item_title, "url": None})
+            return breadcrumbs
+
+        # Split path into segments
+        if relative_path == ".":
+            # We're at root
+            return breadcrumbs
+
+        segments = relative_path.split(os.sep)
+        accumulated_path = root_path
+
+        # Build breadcrumbs for each segment
+        for i, segment in enumerate(segments):
+            accumulated_path = os.path.join(accumulated_path, segment)
+
+            # Look up this path in registry
+            found_entry = None
+
+            # Check directories
+            for entry in self.get_all_directories().values():
+                if entry["path"] == accumulated_path:
+                    found_entry = entry
+                    break
+
+            # Check courses if not found
+            if not found_entry:
+                for entry in self.get_all_courses().values():
+                    if entry["path"] == accumulated_path:
+                        found_entry = entry
+                        break
+
+            if found_entry:
+                title = found_entry["title"]
+                item_id = os.path.basename(accumulated_path)
+                url = f"/directory/{item_id}" if found_entry["node_type"] == "directory" else f"/course/{item_id}"
+
+                breadcrumbs.append({"title": title, "url": url})
+            else:
+                # Not in registry, use segment name
+                breadcrumbs.append({"title": segment, "url": None})
+
+        return breadcrumbs
 
     #TODO: Avoid having path hardcoded in multiple places
     def migrate_from_directory_registry(self, old_registry_path: str = "app/data/directory_registry.json") -> None:

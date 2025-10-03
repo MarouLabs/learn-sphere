@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% from "components/course_cell.html" import course_cell %}
 {% from "components/directory_cell.html" import directory_cell %}
+{% from "components/breadcrumb.html" import breadcrumb_nav %}
 
 {% block title %}{{ directory_title }} - Learn Sphere{% endblock %}
 
@@ -8,12 +9,7 @@
 <div class="ls-home-container">
     <!-- Main content -->
     <main class="ls-home-content">
-        <!-- Navigation breadcrumb -->
-        <nav class="ls-breadcrumb">
-            <a href="/" class="ls-breadcrumb-link">Home</a>
-            <span class="ls-breadcrumb-separator">/</span>
-            <span class="ls-breadcrumb-current">{{ directory_title }}</span>
-        </nav>
+        {{ breadcrumb_nav(breadcrumbs) }}
 
         <!-- Title -->
         <h1 class="ls-home-title">{{ directory_title }}</h1>

@@ -1,7 +1,7 @@
 {% macro lesson_cell(lesson, course_id, module_directory=None) %}
 {% set lesson_filename = lesson.file_path.split('/')[-1] if lesson.file_path else '' %}
 {% set lesson_relative_path = (module_directory ~ '/' ~ lesson_filename) if module_directory else lesson_filename %}
-<a href="{{ url_for('main.lesson_view', course_id=course_id, lesson_path=lesson_relative_path) }}" class="ls-lesson-cell">
+<a href="{{ url_for('lesson.view', course_id=course_id, lesson_path=lesson_relative_path) }}" class="ls-lesson-cell">
     <!-- Lesson Title -->
     <div class="ls-lesson-title">{{ lesson.title }}</div>
 

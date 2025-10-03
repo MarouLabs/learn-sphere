@@ -1,0 +1,11 @@
+{% macro breadcrumb_nav(breadcrumbs) %}
+<!-- Navigation breadcrumb -->
+<nav class="ls-breadcrumb"></nav>
+
+<script src="{{ url_for('static', filename='js/breadcrumb-builder.js') }}"></script>
+<script>
+    // Build breadcrumbs from data passed from backend
+    const breadcrumbData = {{ breadcrumbs | tojson }};
+    BreadcrumbBuilder.build(breadcrumbData);
+</script>
+{% endmacro %}
