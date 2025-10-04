@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template, abort
+from flask import Blueprint, render_template, abort, send_file
+from app.services.lesson_service import LessonService
 from app.services.registry_service import RegistryService
 from app.services.user_preferences_service import UserPreferencesService
-from app.services.lesson_service import LessonService
 
 bp = Blueprint("lesson", __name__)
 
@@ -10,39 +10,44 @@ bp = Blueprint("lesson", __name__)
 def view(course_id, lesson_path):
     """View a lesson within a course."""
     registry_service = RegistryService()
-
-    course_entry = registry_service.get_course_by_id(course_id)
-    if not course_entry:
-        abort(404)
-
-    course_path = course_entry["path"]
-
-    try:
-        full_lesson_path = LessonService.build_lesson_path(course_path, lesson_path)
-    except ValueError:
-        abort(404)
-
-    if not LessonService.validate_lesson_exists(full_lesson_path):
-        abort(404)
-
-    lesson_title = LessonService.extract_lesson_title(lesson_path)
-
-    breadcrumbs = registry_service.build_breadcrumbs_from_path(course_path, course_entry["title"])
-
-    has_module, module_name = LessonService.get_module_info(lesson_path)
-    if has_module:
-        breadcrumbs.append({"title": module_name, "url": None})
-
-    breadcrumbs.append({"title": lesson_title, "url": None})
-
-    # Get user theme
     preferences_service = UserPreferencesService()
+
+    lesson_view_data = LessonService.prepare_lesson_view(course_id, lesson_path, registry_service)
+
+    if not lesson_view_data:
+        abort(404)
+
     user_theme = preferences_service.get_theme()
+    playback_speeds = preferences_service.get_playback_speeds()
 
     return render_template("lesson_view.html",
-                         lesson_title=lesson_title,
-                         course_title=course_entry["title"],
+                         lesson_title=lesson_view_data['lesson_title'],
+                         course_title=lesson_view_data['course_title'],
                          course_id=course_id,
-                         lesson_path=full_lesson_path,
-                         breadcrumbs=breadcrumbs,
-                         user_theme=user_theme)
+                         lesson_path=lesson_path,
+                         lesson_type=lesson_view_data['lesson_type'],
+                         media_url=lesson_view_data['media_url'],
+                         download_url=lesson_view_data['download_url'],
+                         text_content=lesson_view_data['text_content'],
+                         is_markdown=lesson_view_data['is_markdown'],
+                         is_pdf=lesson_view_data['is_pdf'],
+                         is_html=lesson_view_data['is_html'],
+                         breadcrumbs=lesson_view_data['breadcrumbs'],
+                         user_theme=user_theme,
+                         video_speed=playback_speeds.get('video', 1.0),
+                         audio_speed=playback_speeds.get('audio', 1.0))
+
+
+@bp.route("/lesson/<path:course_id>/<path:lesson_path>/download")
+def download(course_id, lesson_path):
+    """Download a lesson file."""
+    registry_service = RegistryService()
+
+    download_data = LessonService.prepare_lesson_download(course_id, lesson_path, registry_service)
+
+    if not download_data:
+        abort(404)
+
+    return send_file(download_data['file_path'],
+                    as_attachment=True,
+                    download_name=download_data['filename'])

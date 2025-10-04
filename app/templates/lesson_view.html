@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% from "components/breadcrumb.html" import breadcrumb_nav %}
+{% from "components/lesson_content_viewer.html" import lesson_content_viewer %}
 
 {% block title %}{{ lesson_title }} - Learn Sphere{% endblock %}
 
@@ -18,10 +19,10 @@
         <!-- Lesson Title -->
         <h1 class="ls-lesson-view-title">{{ lesson_title }}</h1>
 
-        <!-- Lesson content will be added later -->
-        <div class="ls-lesson-view-content">
-            <!-- Design to be provided -->
-        </div>
+        <!-- Lesson Content Viewer Component -->
+        {{ lesson_content_viewer(lesson_type, media_url, download_url, text_content, is_markdown, is_pdf, is_html, video_speed, audio_speed) }}
     </main>
 </div>
+
+<script src="{{ url_for('static', filename='js/lesson-player.js') }}"></script>
 {% endblock %}
