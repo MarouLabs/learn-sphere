@@ -1,21 +1,20 @@
-import json
 import os
 from datetime import datetime
 from typing import Dict, Optional, Any
 from app.models.course_model import NodeType
+from app.repositories.registry_repository import RegistryRepository
 
 
 class RegistryService:
     """Unified service to manage the registry for both directories and courses with their metadata and node types."""
 
-    def __init__(self, registry_path: str = "app/data/registry.json"):
-        self.registry_path = registry_path
+    def __init__(self):
+        self.repository = RegistryRepository()
         self._ensure_registry_exists()
 
     def _ensure_registry_exists(self) -> None:
         """Ensure the registry file exists with proper structure."""
-        if not os.path.exists(self.registry_path):
-            os.makedirs(os.path.dirname(self.registry_path), exist_ok=True)
+        if not self.repository.exists():
             self._create_empty_registry()
 
     def _create_empty_registry(self) -> None:
@@ -34,17 +33,19 @@ class RegistryService:
     def _load_registry(self) -> Dict[str, Any]:
         """Load the registry from file."""
         try:
-            with open(self.registry_path, 'r', encoding='utf-8') as f:
-                return json.load(f)
-        except (FileNotFoundError, json.JSONDecodeError):
+            data = self.repository.load()
+            if not data:
+                self._create_empty_registry()
+                return self._load_registry()
+            return data
+        except IOError:
             self._create_empty_registry()
             return self._load_registry()
 
     def _save_registry(self, registry_data: Dict[str, Any]) -> None:
         """Save the registry to file."""
         registry_data["metadata"]["last_updated"] = datetime.now().isoformat()
-        with open(self.registry_path, 'w', encoding='utf-8') as f:
-            json.dump(registry_data, f, indent=2, ensure_ascii=False)
+        self.repository.save(registry_data)
 
     def _get_registry_section(self, node_type: NodeType) -> str:
         """Get the appropriate registry section based on node type."""
@@ -234,19 +235,21 @@ class RegistryService:
 
         return breadcrumbs
 
-    #TODO: Avoid having path hardcoded in multiple places
-    def migrate_from_directory_registry(self, old_registry_path: str = "app/data/directory_registry.json") -> None:
+    def migrate_from_directory_registry(self, old_registry_path: str) -> None:
         """Migrate data from the old directory registry to the unified registry."""
         if not os.path.exists(old_registry_path):
             return
 
         try:
-            with open(old_registry_path, 'r', encoding='utf-8') as f:
-                old_registry = json.load(f)
+            from app.repositories.base_json_repository import BaseJsonRepository
+            old_repo = BaseJsonRepository(old_registry_path)
+            old_registry = old_repo.load()
+
+            if not old_registry:
+                return
 
             registry_data = self._load_registry()
 
-            # Migrate old entries
             for key, entry in old_registry.get("registry", {}).items():
                 node_type = NodeType(entry["node_type"])
                 section = self._get_registry_section(node_type)

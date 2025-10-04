@@ -1,76 +1,60 @@
-import json
-import os
 from typing import Optional
 from dataclasses import asdict
 from datetime import datetime
 
 from app.models.course_metadata_model import CourseMetadata
+from app.repositories.course_metadata_repository import CourseMetadataRepository
 
 
 class CourseMetadataService:
     """Service to manage course metadata stored in .learn_sphere_metadata.json files."""
 
-    METADATA_FILENAME = ".learn_sphere_metadata.json"
-
     @staticmethod
     def get_metadata_path(course_directory: str) -> str:
         """Get the full path to the metadata file for a course directory."""
-        return os.path.join(course_directory, CourseMetadataService.METADATA_FILENAME)
+        return CourseMetadataRepository.get_metadata_path(course_directory)
 
     @staticmethod
     def metadata_exists(course_directory: str) -> bool:
         """Check if metadata file exists for a course directory."""
-        metadata_path = CourseMetadataService.get_metadata_path(course_directory)
-        return os.path.exists(metadata_path)
+        return CourseMetadataRepository.metadata_exists(course_directory)
 
     @staticmethod
     def load_course_metadata(course_directory: str) -> Optional[CourseMetadata]:
         """Load course metadata from the .learn_sphere_metadata.json file."""
-        metadata_path = CourseMetadataService.get_metadata_path(course_directory)
-
-        if not os.path.exists(metadata_path):
-            return None
+        repository = CourseMetadataRepository(course_directory)
 
         try:
-            with open(metadata_path, 'r', encoding='utf-8') as f:
-                data = json.load(f)
+            data = repository.load()
+            if not data:
+                return None
 
-            # Extract the metadata part
-            metadata_dict = data.get('metadata', data)  # Support both nested and flat structure
+            metadata_dict = data.get('metadata', data)
             return CourseMetadata(**metadata_dict)
 
-        except (FileNotFoundError, json.JSONDecodeError, KeyError, TypeError) as e:
-            print(f"Error loading course metadata from {metadata_path}: {e}")
+        except (IOError, KeyError, TypeError) as e:
+            print(f"Error loading course metadata from {course_directory}: {e}")
             return None
 
     @staticmethod
     def save_course_metadata(course_directory: str, metadata: CourseMetadata) -> bool:
         """Save course metadata to the .learn_sphere_metadata.json file."""
-        metadata_path = CourseMetadataService.get_metadata_path(course_directory)
+        repository = CourseMetadataRepository(course_directory)
 
         try:
-            # Update timestamps
             now = datetime.now().isoformat()
             if not metadata.created_at:
                 metadata.created_at = now
             metadata.updated_at = now
 
-            # Convert to dictionary
             data = {
                 'metadata': asdict(metadata)
             }
 
-            # Ensure directory exists
-            os.makedirs(course_directory, exist_ok=True)
-
-            # Write to file
-            with open(metadata_path, 'w', encoding='utf-8') as f:
-                json.dump(data, f, indent=2, ensure_ascii=False)
-
-            return True
+            return repository.save(data)
 
         except Exception as e:
-            print(f"Error saving course metadata to {metadata_path}: {e}")
+            print(f"Error saving course metadata to {course_directory}: {e}")
             return False
 
     @staticmethod
