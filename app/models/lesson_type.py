@@ -8,23 +8,22 @@ class LessonType(Enum):
     UNKNOWN = "unknown"
 
 
-# File extension constants
 VIDEO_EXTENSIONS = {'.mp4', '.avi', '.mov', '.mkv', '.webm', '.m4v', '.flv', '.wmv'}
 AUDIO_EXTENSIONS = {'.mp3', '.wav', '.m4a', '.aac', '.ogg', '.flac', '.wma'}
-TEXT_EXTENSIONS = {'.txt', '.md', '.rst', '.doc', '.docx'}
+TEXT_EXTENSIONS = {'.txt', '.md', '.rst', '.doc', '.docx', '.html', '.htm'}
 DOCUMENT_EXTENSIONS = {'.pdf', '.epub', '.mobi'}
 
-# Extension to lesson type mapping
+ALL_LESSON_EXTENSIONS = VIDEO_EXTENSIONS | AUDIO_EXTENSIONS | TEXT_EXTENSIONS | DOCUMENT_EXTENSIONS
+
 EXTENSION_TO_LESSON_TYPE = {}
 
-# Populate the mapping
 for ext in VIDEO_EXTENSIONS:
     EXTENSION_TO_LESSON_TYPE[ext] = LessonType.VIDEO
 
 for ext in AUDIO_EXTENSIONS:
     EXTENSION_TO_LESSON_TYPE[ext] = LessonType.AUDIO
 
-for ext in TEXT_EXTENSIONS:
+for ext in TEXT_EXTENSIONS | DOCUMENT_EXTENSIONS:
     EXTENSION_TO_LESSON_TYPE[ext] = LessonType.TEXT
 
 

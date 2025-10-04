@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, abort
-import os
 from app.services.directory_service import DirectoryService
 from app.services.registry_service import RegistryService
 from app.services.user_preferences_service import UserPreferencesService
@@ -13,28 +12,21 @@ def view(directory_id):
     """View a directory and its contents (courses and subdirectories)."""
     registry_service = RegistryService()
 
-    # Check if directory is registered
     directory_entry = registry_service.get_directory_by_id(directory_id)
     if not directory_entry:
         abort(404)
 
     directory_path = directory_entry["path"]
 
-    # Check if directory still exists
-    if not os.path.exists(directory_path) or not os.path.isdir(directory_path):
+    if not DirectoryService.validate_directory_exists(directory_path):
         abort(404)
 
     # Update last accessed
     registry_service.update_last_accessed(directory_entry["title"], directory_path, NodeType.DIRECTORY)
 
-    # Get directory contents
     courses = DirectoryService.scan_directory(directory_path)
 
-    # Build breadcrumbs
-    breadcrumbs = registry_service.build_breadcrumbs_from_path(directory_path, directory_entry["title"])
-    # Remove URL from last breadcrumb (current page)
-    if breadcrumbs:
-        breadcrumbs[-1]["url"] = None
+    breadcrumbs = registry_service.build_breadcrumbs_for_current_page(directory_path, directory_entry["title"])
 
     # Get user theme
     preferences_service = UserPreferencesService()

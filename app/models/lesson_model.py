@@ -1,13 +1,8 @@
 from dataclasses import dataclass
 from typing import Optional
-from enum import Enum
 import datetime
+from app.models.lesson_type import LessonType
 
-
-class LessonType(Enum):
-    VIDEO = "video"
-    AUDIO = "audio"
-    TEXT = "text"
 
 @dataclass
 class Lesson:

@@ -11,12 +11,6 @@ class NodeType(Enum):
     UNKNOWN = "unknown"
 
 @dataclass
-class CourseMetadata:
-    description: Optional[str] = None
-    image: Optional[str] = None
-    duration_seconds: Optional[int] = None
-
-@dataclass
 class CourseProgress:
     progress_percent: float = 0.0
     last_accessed_item_timestamp: Optional[int] = None
@@ -26,12 +20,13 @@ class CourseProgress:
 @dataclass
 class Course:
     id: Optional[str] = None
-    title: str = "" 
+    title: str = ""
     node_type: NodeType = NodeType.COURSE
     path: Optional[str] = None
-    
+
     progress: CourseProgress = field(default_factory=CourseProgress)
-    metadata: CourseMetadata = field(default_factory=CourseMetadata)
+    image_path: Optional[str] = None
+    description: Optional[str] = None
     
     def get_initials(self) -> str:
         """Get initials from the course title for display."""

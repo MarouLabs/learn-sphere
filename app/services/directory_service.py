@@ -1,8 +1,9 @@
 import os
-from typing import List
-from app.models.course_model import Course, NodeType, CourseMetadata
+from typing import List, Optional
+from app.models.course_model import Course, NodeType
 from app.services.content_detection_service import ContentDetectionService
 from app.services.registry_service import RegistryService
+from app.utils.text_formatter import TextFormatter
 
 
 class DirectoryService:
@@ -57,62 +58,44 @@ class DirectoryService:
                         registry_entry = None
                     
                     if registry_entry and not force_analysis:
-                        # Item exists in registry - skip deep analysis and use cached data
                         print(f"Found in registry: {formatted_title} - skipping deep analysis")
-                        
-                        # Update last accessed timestamp
+
                         registry_service.update_last_accessed(formatted_title, item_path, content_type)
 
-                        # Create course from registry data
                         node_type = content_type
-                        
-                        # Still need to check for image and calculate progress for now
-                        # TODO: consider if it's worth to cache these in the registry
-                        image_path = ContentDetectionService.find_course_image(item_path)
+
+                        image_absolute_path = ContentDetectionService.find_course_image(item_path)
+                        image_url = DirectoryService._convert_image_path_to_url(image_absolute_path, item, node_type)
                         progress_percent = ContentDetectionService.calculate_progress(item_path)
-                        
-                        metadata = CourseMetadata(
-                            image=image_path if image_path else None
-                        )
-                        
+
                         course = Course(
                             id=item,
                             title=formatted_title,
                             node_type=node_type,
-                            path=item_path
+                            path=item_path,
+                            image_path=image_url
                         )
-                        course.metadata = metadata
                         course.progress.progress_percent = progress_percent
                         
                     else:
-                        # Item not in registry - perform full analysis
                         print(f"Not in registry: {formatted_title} - performing deep analysis")
 
-                        # Detect content type (deep analysis) if not already detected
                         if content_type is None:
                             content_type = ContentDetectionService.detect_content_type(item_path)
-                        
-                        # Find course image
-                        image_path = ContentDetectionService.find_course_image(item_path)
-                        
-                        # Calculate progress
+
+                        image_absolute_path = ContentDetectionService.find_course_image(item_path)
+                        image_url = DirectoryService._convert_image_path_to_url(image_absolute_path, item, content_type)
                         progress_percent = ContentDetectionService.calculate_progress(item_path)
-                        
-                        # Create metadata
-                        metadata = CourseMetadata(
-                            image=image_path if image_path else None
-                        )
-                        
+
                         course = Course(
                             id=item,
                             title=formatted_title,
                             node_type=content_type,
-                            path=item_path
+                            path=item_path,
+                            image_path=image_url
                         )
-                        course.metadata = metadata
                         course.progress.progress_percent = progress_percent
-                        
-                        # Register the item in the registry for future use
+
                         registry_service.register_item(formatted_title, item_path, content_type)
                     
                     courses.append(course)
@@ -130,29 +113,59 @@ class DirectoryService:
     def _format_title(directory_name: str) -> str:
         """
         Format directory name into a readable title.
-        
+
         Args:
             directory_name (str): The directory name
-            
+
         Returns:
             str: Formatted title
         """
-        # Replace underscores and hyphens with spaces
-        title = directory_name.replace('_', ' ').replace('-', ' ')
-        
-        # Capitalize each word
-        title = ' '.join(word.capitalize() for word in title.split())
-        
-        return title
+        return TextFormatter.format_directory_title(directory_name)
     
+    @staticmethod
+    def _convert_image_path_to_url(absolute_image_path: str, item_id: str, node_type: NodeType) -> Optional[str]:
+        """
+        Convert absolute filesystem image path to web-accessible URL.
+
+        Args:
+            absolute_image_path: Absolute path to the image file
+            item_id: The course or directory ID
+            node_type: Type of the node (course or directory)
+
+        Returns:
+            Web-accessible URL or None if no image
+        """
+        if not absolute_image_path:
+            return None
+
+        filename = os.path.basename(absolute_image_path)
+
+        if node_type == NodeType.DIRECTORY:
+            return f"/media/directory/{item_id}/{filename}"
+        else:
+            return f"/media/course/{item_id}/{filename}"
+
+    @staticmethod
+    def validate_directory_exists(directory_path: str) -> bool:
+        """
+        Validate that a directory exists.
+
+        Args:
+            directory_path (str): The absolute path to the directory
+
+        Returns:
+            bool: True if directory exists, False otherwise
+        """
+        return os.path.exists(directory_path) and os.path.isdir(directory_path)
+
     @staticmethod
     def force_analyze_directory(directory_path: str) -> List[Course]:
         """
         Force deep analysis of a directory, ignoring registry cache.
-        
+
         Args:
             directory_path (str): The absolute path to the directory to scan
-            
+
         Returns:
             List[Course]: List of courses and directories found with fresh analysis
         """

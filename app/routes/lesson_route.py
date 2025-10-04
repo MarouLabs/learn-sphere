@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, abort
-import os
 from app.services.registry_service import RegistryService
 from app.services.user_preferences_service import UserPreferencesService
+from app.services.lesson_service import LessonService
 
 bp = Blueprint("lesson", __name__)
 
@@ -11,32 +11,28 @@ def view(course_id, lesson_path):
     """View a lesson within a course."""
     registry_service = RegistryService()
 
-    # Check if course is registered
     course_entry = registry_service.get_course_by_id(course_id)
     if not course_entry:
         abort(404)
 
     course_path = course_entry["path"]
 
-    # Construct full lesson path
-    full_lesson_path = os.path.join(course_path, lesson_path)
-
-    # Check if lesson file exists
-    if not os.path.exists(full_lesson_path) or not os.path.isfile(full_lesson_path):
+    try:
+        full_lesson_path = LessonService.build_lesson_path(course_path, lesson_path)
+    except ValueError:
         abort(404)
 
-    # Extract lesson title from filename
-    lesson_title = os.path.splitext(os.path.basename(lesson_path))[0]
+    if not LessonService.validate_lesson_exists(full_lesson_path):
+        abort(404)
 
-    # Build breadcrumbs for course first
+    lesson_title = LessonService.extract_lesson_title(lesson_path)
+
     breadcrumbs = registry_service.build_breadcrumbs_from_path(course_path, course_entry["title"])
 
-    # Add module to breadcrumb if lesson is in a subdirectory
-    if os.path.dirname(lesson_path):
-        module_name = os.path.dirname(lesson_path)
+    has_module, module_name = LessonService.get_module_info(lesson_path)
+    if has_module:
         breadcrumbs.append({"title": module_name, "url": None})
 
-    # Add lesson as final breadcrumb
     breadcrumbs.append({"title": lesson_title, "url": None})
 
     # Get user theme

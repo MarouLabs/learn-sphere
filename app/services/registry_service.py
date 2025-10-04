@@ -234,6 +234,22 @@ class RegistryService:
                 breadcrumbs.append({"title": segment, "url": None})
 
         return breadcrumbs
+    
+    def build_breadcrumbs_for_current_page(self, item_path: str, item_title: str) -> list:
+        """
+        Build breadcrumbs for the current page (last breadcrumb has no URL).
+
+        Args:
+            item_path: Full absolute path to the current item
+            item_title: Title of the current item
+
+        Returns:
+            List of breadcrumb dictionaries with the last URL set to None
+        """
+        breadcrumbs = self.build_breadcrumbs_from_path(item_path, item_title)
+        if breadcrumbs:
+            breadcrumbs[-1]["url"] = None
+        return breadcrumbs
 
     def migrate_from_directory_registry(self, old_registry_path: str) -> None:
         """Migrate data from the old directory registry to the unified registry."""

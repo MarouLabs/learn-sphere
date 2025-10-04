@@ -2,7 +2,7 @@
 <a href="{% if course.node_type.value == 'directory' %}/directory/{{ course.id }}{% else %}/course/{{ course.id }}{% endif %}" class="ls-course-cell">
     <!-- Course Image/Thumbnail -->
     <div class="ls-course-cell-image
-        {% if course.metadata.image %}
+        {% if course.image_path %}
             ls-has-image
         {% elif course.node_type.value == 'directory' %}
             ls-directory-fallback
@@ -10,8 +10,8 @@
             ls-course-fallback
         {% endif %}">
 
-        {% if course.metadata.image %}
-            <img src="{{ course.metadata.image }}" alt="{{ course.title }}" loading="lazy">
+        {% if course.image_path %}
+            <img src="{{ course.image_path }}" alt="{{ course.title }}" loading="lazy">
         {% elif course.node_type.value == 'directory' %}
             <div class="ls-directory-icon"></div>
         {% else %}

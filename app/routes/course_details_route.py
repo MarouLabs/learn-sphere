@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, abort
-import os
 from app.services.registry_service import RegistryService
 from app.services.user_preferences_service import UserPreferencesService
 from app.services.course_metadata_service import CourseMetadataService
 from app.services.content_detection_service import ContentDetectionService
+from app.services.directory_service import DirectoryService
 from app.models.course_model import NodeType
 from app.models.course_structure_model import CourseStructure
 
@@ -15,15 +15,13 @@ def details(course_id):
     """View course details including modules and lessons."""
     registry_service = RegistryService()
 
-    # Check if course is registered
     course_entry = registry_service.get_course_by_id(course_id)
     if not course_entry:
         abort(404)
 
     course_path = course_entry["path"]
 
-    # Check if course still exists
-    if not os.path.exists(course_path) or not os.path.isdir(course_path):
+    if not DirectoryService.validate_directory_exists(course_path):
         abort(404)
 
     # Update last accessed
@@ -43,14 +41,9 @@ def details(course_id):
     # Save updated metadata
     CourseMetadataService.save_course_metadata(course_path, metadata)
 
-    # Create course structure
     course_structure = CourseStructure(metadata=metadata, modules=modules, lessons=lessons)
 
-    # Build breadcrumbs
-    breadcrumbs = registry_service.build_breadcrumbs_from_path(course_path, course_entry["title"])
-    # Remove URL from last breadcrumb (current page)
-    if breadcrumbs:
-        breadcrumbs[-1]["url"] = None
+    breadcrumbs = registry_service.build_breadcrumbs_for_current_page(course_path, course_entry["title"])
 
     # Get user theme
     preferences_service = UserPreferencesService()

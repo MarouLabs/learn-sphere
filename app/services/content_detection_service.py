@@ -4,7 +4,8 @@ from typing import List, Set
 from app.models.course_model import NodeType
 from app.models.lesson_data_model import LessonData
 from app.models.module_data_model import ModuleData
-from app.models.lesson_type import LessonType, get_lesson_type_from_extension
+from app.models.lesson_type import LessonType, get_lesson_type_from_extension, ALL_LESSON_EXTENSIONS
+from app.utils.text_formatter import TextFormatter
 
 
 def natural_sort_key(text: str):
@@ -31,17 +32,8 @@ def natural_sort_key(text: str):
 
 class ContentDetectionService:
     """Service to detect the type of content in directories (Course, Module, Directory)."""
-    
-    # TODO: is these extensions redundant with lesson_type.py?
-    # Common image file extensions
+
     IMAGE_EXTENSIONS = {'.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg', '.webp'}
-    
-    # Common lesson file extensions
-    LESSON_EXTENSIONS = {
-        '.mp4', '.avi', '.mkv', '.mov', '.wmv', '.flv', '.webm', # Video
-        '.mp3', '.wav', '.aac', '.flac', '.ogg', '.m4a',         # Audio
-        '.pdf', '.doc', '.docx', '.txt', '.md', '.html', '.htm', # Documents
-    }
     
     @staticmethod
     def detect_content_type(directory_path: str) -> NodeType:
@@ -115,14 +107,14 @@ class ContentDetectionService:
 
         # Check if it has a supported extension
         _, ext = os.path.splitext(filename.lower())
-        return ext in ContentDetectionService.LESSON_EXTENSIONS
+        return ext in ALL_LESSON_EXTENSIONS
 
     @staticmethod
     def _has_lesson_files(files: List[str]) -> bool:
         """Check if the files list contains lesson-type files."""
         for file in files:
             _, ext = os.path.splitext(file.lower())
-            if ext in ContentDetectionService.LESSON_EXTENSIONS:
+            if ext in ALL_LESSON_EXTENSIONS:
                 return True
         return False
     
@@ -157,7 +149,7 @@ class ContentDetectionService:
                     else:
                         # Check if it's a lesson file
                         _, ext = os.path.splitext(item.lower())
-                        if ext in ContentDetectionService.LESSON_EXTENSIONS:
+                        if ext in ALL_LESSON_EXTENSIONS:
                             has_lesson_files = True
 
                 # If subdirectory contains other directories, this is NOT a course
@@ -264,7 +256,7 @@ class ContentDetectionService:
                 #TODO: Extract this method for reusability
                 # Clean up module title
                 module_title = module_name
-                module_title = re.sub(r'^\d+[\.\-\s]*', '', module_title).strip()
+                module_title = TextFormatter.remove_numbering_prefix(module_title)
 
                 module = ModuleData(
                     title=module_title,
@@ -311,7 +303,7 @@ class ContentDetectionService:
                     # Extract lesson title (remove extension and numbering)
                     lesson_title = os.path.splitext(lesson_file)[0]
                     # Clean up common prefixes like "1. ", "01 - ", etc.
-                    lesson_title = re.sub(r'^\d+[\.\-\s]*', '', lesson_title).strip()
+                    lesson_title = TextFormatter.remove_numbering_prefix(lesson_title)
 
                     lesson = LessonData(
                         title=lesson_title,
@@ -363,7 +355,7 @@ class ContentDetectionService:
                 # Extract lesson title (remove extension and numbering)
                 lesson_title = os.path.splitext(lesson_file)[0]
                 # Clean up common prefixes like "1. ", "01 - ", etc.
-                lesson_title = re.sub(r'^\d+[\.\-\s]*', '', lesson_title).strip()
+                lesson_title = TextFormatter.remove_numbering_prefix(lesson_title)
 
                 lesson = LessonData(
                     title=lesson_title,
