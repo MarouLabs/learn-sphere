@@ -44,11 +44,56 @@
     font-size: 2rem;
     font-weight: 700;
     color: var(--ls-text);
-    margin-bottom: $ls-spacing-lg;
+    margin-bottom: $ls-spacing-md;
 
     @media (max-width: $ls-breakpoint-mobile-max) {
         font-size: 1.5rem;
     }
+}
+
+// Lesson File Info
+.ls-lesson-file-info {
+    display: flex;
+    gap: $ls-spacing-lg;
+    margin-bottom: $ls-spacing-lg;
+    padding: $ls-spacing-md;
+    background: $ls-panel;
+    border: 1px solid $ls-border;
+    border-radius: $ls-border-radius;
+
+    @media (max-width: $ls-breakpoint-mobile-max) {
+        flex-direction: column;
+        gap: $ls-spacing-sm;
+        padding: $ls-spacing-sm;
+    }
+}
+
+.ls-file-info-item {
+    display: flex;
+    align-items: center;
+    gap: $ls-spacing-6;
+    color: $ls-text;
+
+    svg {
+        color: $ls-accent;
+        flex-shrink: 0;
+    }
+
+    @media (max-width: $ls-breakpoint-mobile-max) {
+        gap: $ls-spacing-xs;
+    }
+}
+
+.ls-file-info-label {
+    font-size: $ls-font-size-sm;
+    color: $ls-muted;
+    font-weight: 500;
+}
+
+.ls-file-info-value {
+    font-size: $ls-font-size-base;
+    color: $ls-text;
+    font-weight: 600;
 }
 
 .ls-side-list {

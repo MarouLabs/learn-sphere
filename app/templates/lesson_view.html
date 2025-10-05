@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% from "components/breadcrumb.html" import breadcrumb_nav %}
 {% from "components/lesson_content_viewer.html" import lesson_content_viewer %}
+{% from "components/lesson_file_info.html" import lesson_file_info %}
 
 {% block title %}{{ lesson_title }} - Learn Sphere{% endblock %}
 
@@ -18,6 +19,9 @@
 
         <!-- Lesson Title -->
         <h1 class="ls-lesson-view-title">{{ lesson_title }}</h1>
+
+        <!-- Lesson File Info Component -->
+        {{ lesson_file_info(file_format, file_size, duration) }}
 
         <!-- Lesson Content Viewer Component -->
         {{ lesson_content_viewer(lesson_type, media_url, download_url, text_content, is_markdown, is_pdf, is_html, video_speed, audio_speed) }}

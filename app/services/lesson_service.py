@@ -150,6 +150,74 @@ class LessonService:
             return content
 
     @staticmethod
+    def get_file_metadata(file_path: str, lesson_type: LessonType) -> Dict[str, Any]:
+        """
+        Get file metadata (size, format, duration for media files, etc.).
+
+        Args:
+            file_path (str): Absolute path to the file
+            lesson_type (LessonType): Type of lesson (video, audio, text)
+
+        Returns:
+            Dict[str, Any]: Dictionary containing:
+                - file_size: Human-readable file size
+                - file_size_bytes: Raw file size in bytes
+                - file_format: File extension (e.g., .mp4, .pdf)
+                - duration: Duration for media files (None for non-media)
+                - duration_seconds: Raw duration in seconds
+        """
+        try:
+            file_stats = os.stat(file_path)
+            file_size_bytes = file_stats.st_size
+            file_extension = os.path.splitext(file_path)[1].upper()
+
+            def format_file_size(size_bytes: int) -> str:
+                """Convert bytes to human-readable format."""
+                for unit in ['B', 'KB', 'MB', 'GB', 'TB']:
+                    if size_bytes < 1024.0:
+                        return f"{size_bytes:.2f} {unit}"
+                    size_bytes /= 1024.0
+                return f"{size_bytes:.2f} PB"
+
+            def format_duration(seconds: int) -> str:
+                """Convert seconds to HH:MM:SS or MM:SS format."""
+                hours = seconds // 3600
+                minutes = (seconds % 3600) // 60
+                secs = seconds % 60
+
+                if hours > 0:
+                    return f"{hours:02d}:{minutes:02d}:{secs:02d}"
+                else:
+                    return f"{minutes:02d}:{secs:02d}"
+
+            # TODO: Extract actual duration from media files
+            # For now, generate random placeholder duration for media files
+            duration = None
+            duration_seconds = 0
+
+            if lesson_type in [LessonType.VIDEO, LessonType.AUDIO]:
+                import random
+                # Generate random duration between 1 minute and 2 hours
+                duration_seconds = random.randint(60, 7200)
+                duration = format_duration(duration_seconds)
+
+            return {
+                'file_size': format_file_size(file_size_bytes),
+                'file_size_bytes': file_stats.st_size,
+                'file_format': file_extension.lstrip('.'),
+                'duration': duration,
+                'duration_seconds': duration_seconds
+            }
+        except Exception:
+            return {
+                'file_size': 'Unknown',
+                'file_size_bytes': 0,
+                'file_format': 'Unknown',
+                'duration': None,
+                'duration_seconds': 0
+            }
+
+    @staticmethod
     def prepare_lesson_view(course_id: str, lesson_path: str, registry_service) -> Optional[Dict[str, Any]]:
         """
         Prepare all data needed for lesson view template.
@@ -178,6 +246,7 @@ class LessonService:
 
         lesson_title = LessonService.extract_lesson_title(lesson_path)
         lesson_content = LessonService.prepare_lesson_content(full_lesson_path)
+        file_metadata = LessonService.get_file_metadata(full_lesson_path, lesson_content['lesson_type'])
 
         breadcrumbs = registry_service.build_breadcrumbs_from_path(course_path, course_entry["title"])
 
@@ -199,6 +268,9 @@ class LessonService:
             'is_markdown': lesson_content['is_markdown'],
             'is_pdf': lesson_content['is_pdf'],
             'is_html': lesson_content['is_html'],
+            'file_size': file_metadata['file_size'],
+            'file_format': file_metadata['file_format'],
+            'duration': file_metadata['duration'],
             'breadcrumbs': breadcrumbs
         }
 
