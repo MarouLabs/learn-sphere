@@ -80,9 +80,11 @@ courses/
 **Priority order:** cover → thumbnail → image → logo → icon
 
 ### Lessons
-- **Video**: `.mp4`, `.avi`, `.mov`, `.mkv`, `.webm`, `.m4v`, `.flv`, `.wmv`
-- **Audio**: `.mp3`, `.wav`, `.m4a`, `.aac`, `.ogg`, `.flac`, `.wma`
-- **Documents**: `.txt`, `.md`, `.rst`, `.doc`, `.docx`, `.html`, `.htm`, `.pdf`, `.epub`, `.mobi`
+- **Video**: `.mp4`, `.webm`, `.mov`, `.m4v`
+- **Audio**: `.mp3`, `.wav`, `.m4a`, `.flac`
+- **Text/Documents**: `.txt`, `.md`, `.rst`, `.doc`, `.html`, `.htm`, `.pdf`
+
+**Note:** Files with unsupported extensions will display a download option instead of preview.
 
 ## Installation & Setup
 

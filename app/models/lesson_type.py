@@ -8,10 +8,10 @@ class LessonType(Enum):
     UNKNOWN = "unknown"
 
 
-VIDEO_EXTENSIONS = {'.mp4', '.avi', '.mov', '.mkv', '.webm', '.m4v', '.flv', '.wmv'}
-AUDIO_EXTENSIONS = {'.mp3', '.wav', '.m4a', '.aac', '.ogg', '.flac', '.wma'}
-TEXT_EXTENSIONS = {'.txt', '.md', '.rst', '.doc', '.docx', '.html', '.htm'}
-DOCUMENT_EXTENSIONS = {'.pdf', '.epub', '.mobi'}
+VIDEO_EXTENSIONS = {'.mp4', '.webm', '.mov', '.m4v'}
+AUDIO_EXTENSIONS = {'.mp3', '.wav', '.m4a', '.flac'}
+TEXT_EXTENSIONS = {'.txt', '.md', '.rst', '.doc', '.html', '.htm'}
+DOCUMENT_EXTENSIONS = {'.pdf'}
 
 ALL_LESSON_EXTENSIONS = VIDEO_EXTENSIONS | AUDIO_EXTENSIONS | TEXT_EXTENSIONS | DOCUMENT_EXTENSIONS
 
