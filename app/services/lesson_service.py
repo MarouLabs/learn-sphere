@@ -183,7 +183,9 @@ class LessonService:
 
         has_module, module_name = LessonService.get_module_info(lesson_path)
         if has_module:
-            breadcrumbs.append({"title": module_name, "url": None})
+            module_anchor = module_name.replace(' ', '-').replace('/', '-').lower()
+            module_url = f'/course/{course_id}#module-{module_anchor}'
+            breadcrumbs.append({"title": module_name, "url": module_url})
 
         breadcrumbs.append({"title": lesson_title, "url": None})
 

@@ -152,6 +152,13 @@
     border-radius: $ls-border-radius;
     overflow: hidden;
     background: var(--ls-panel-2);
+    transition: all $ls-transition-fast;
+    scroll-margin-top: 80px;
+
+    &:target {
+        border-color: $ls-accent;
+        box-shadow: 0 0 0 3px rgba($ls-accent, 0.2);
+    }
 
     @media (min-width: $ls-breakpoint-mobile-max + 1) {
         display: flex;
