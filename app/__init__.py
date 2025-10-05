@@ -23,6 +23,8 @@ def create_app():
 
     # Import and register controllers
     from app.controllers.user_preferences_controller import user_preferences_blueprint
+    from app.controllers.progress_controller import progress_blueprint
     app.register_blueprint(user_preferences_blueprint)
+    app.register_blueprint(progress_blueprint)
 
     return app
