@@ -25,6 +25,31 @@
 
         <!-- Lesson Content Viewer Component -->
         {{ lesson_content_viewer(lesson_type, media_url, download_url, text_content, is_markdown, is_pdf, is_html, video_speed, audio_speed) }}
+
+        <!-- Lesson Navigation Buttons -->
+        <div class="ls-lesson-navigation">
+            {% if previous_lesson %}
+            <a href="{{ url_for('lesson.view', course_id=course_id, lesson_path=previous_lesson) }}" class="ls-nav-button ls-nav-button-prev">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+                <span>Previous Lesson</span>
+            </a>
+            {% else %}
+            <div></div>
+            {% endif %}
+
+            {% if next_lesson %}
+            <a href="{{ url_for('lesson.view', course_id=course_id, lesson_path=next_lesson) }}" class="ls-nav-button ls-nav-button-next">
+                <span>Next Lesson</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </a>
+            {% else %}
+            <div></div>
+            {% endif %}
+        </div>
     </main>
 </div>
 

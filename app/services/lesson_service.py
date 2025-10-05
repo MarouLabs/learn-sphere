@@ -218,6 +218,57 @@ class LessonService:
             }
 
     @staticmethod
+    def get_lesson_navigation(course_path: str, current_lesson_path: str) -> Dict[str, Optional[str]]:
+        """
+        Get next and previous lesson paths for navigation.
+
+        Args:
+            course_path (str): Absolute path to the course directory
+            current_lesson_path (str): Relative path to the current lesson
+
+        Returns:
+            Dict[str, Optional[str]]: Dictionary with 'next' and 'previous' lesson paths (relative)
+        """
+        from app.services.content_detection_service import ContentDetectionService
+
+        # Get all lessons from modules and root
+        all_lessons = []
+
+        try:
+            # Scan modules
+            modules = ContentDetectionService.scan_course_modules(course_path)
+            for module in modules:
+                for lesson in module.lessons:
+                    # Get relative path from course directory
+                    rel_path = os.path.relpath(lesson.file_path, course_path)
+                    all_lessons.append(rel_path)
+
+            # Scan root lessons
+            root_lessons = ContentDetectionService.scan_course_lessons(course_path)
+            for lesson in root_lessons:
+                rel_path = os.path.relpath(lesson.file_path, course_path)
+                all_lessons.append(rel_path)
+
+            # Find current lesson index
+            try:
+                current_index = all_lessons.index(current_lesson_path)
+            except ValueError:
+                # Current lesson not found
+                return {'next': None, 'previous': None}
+
+            # Get next and previous
+            next_lesson = all_lessons[current_index + 1] if current_index + 1 < len(all_lessons) else None
+            previous_lesson = all_lessons[current_index - 1] if current_index > 0 else None
+
+            return {
+                'next': next_lesson,
+                'previous': previous_lesson
+            }
+
+        except Exception:
+            return {'next': None, 'previous': None}
+
+    @staticmethod
     def prepare_lesson_view(course_id: str, lesson_path: str, registry_service) -> Optional[Dict[str, Any]]:
         """
         Prepare all data needed for lesson view template.
@@ -258,6 +309,9 @@ class LessonService:
 
         breadcrumbs.append({"title": lesson_title, "url": None})
 
+        # Get navigation
+        navigation = LessonService.get_lesson_navigation(course_path, lesson_path)
+
         return {
             'lesson_title': lesson_title,
             'course_title': course_entry["title"],
@@ -271,7 +325,9 @@ class LessonService:
             'file_size': file_metadata['file_size'],
             'file_format': file_metadata['file_format'],
             'duration': file_metadata['duration'],
-            'breadcrumbs': breadcrumbs
+            'breadcrumbs': breadcrumbs,
+            'next_lesson': navigation['next'],
+            'previous_lesson': navigation['previous']
         }
 
     @staticmethod

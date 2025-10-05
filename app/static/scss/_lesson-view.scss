@@ -564,3 +564,57 @@
         display: block;
     }
 }
+
+// Lesson Navigation
+.ls-lesson-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: $ls-spacing-xl;
+    gap: $ls-spacing-md;
+
+    @media (max-width: $ls-breakpoint-mobile-max) {
+        flex-direction: column;
+        gap: $ls-spacing-sm;
+    }
+}
+
+.ls-nav-button {
+    display: inline-flex;
+    align-items: center;
+    gap: $ls-spacing-sm;
+    padding: $ls-spacing-md $ls-spacing-lg;
+    background: $ls-panel;
+    border: 1px solid $ls-border;
+    border-radius: $ls-border-radius;
+    color: $ls-text;
+    text-decoration: none;
+    font-size: $ls-font-size-base;
+    font-weight: 500;
+    transition: all $ls-transition-fast;
+    cursor: pointer;
+
+    svg {
+        flex-shrink: 0;
+        transition: transform $ls-transition-fast;
+    }
+
+    &:hover {
+        background: $ls-panel-3;
+        border-color: $ls-accent;
+        color: $ls-accent;
+
+        &.ls-nav-button-prev svg {
+            transform: translateX(-4px);
+        }
+
+        &.ls-nav-button-next svg {
+            transform: translateX(4px);
+        }
+    }
+
+    @media (max-width: $ls-breakpoint-mobile-max) {
+        width: 100%;
+        justify-content: center;
+    }
+}
