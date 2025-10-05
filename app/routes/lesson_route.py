@@ -38,6 +38,7 @@ def view(course_id, lesson_path):
                          breadcrumbs=lesson_view_data['breadcrumbs'],
                          next_lesson=lesson_view_data['next_lesson'],
                          previous_lesson=lesson_view_data['previous_lesson'],
+                         back_to_course_url=lesson_view_data['back_to_course_url'],
                          user_theme=user_theme,
                          video_speed=playback_speeds.get('video', 1.0),
                          audio_speed=playback_speeds.get('audio', 1.0))

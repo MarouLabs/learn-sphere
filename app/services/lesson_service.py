@@ -69,6 +69,21 @@ class LessonService:
         return (False, None)
 
     @staticmethod
+    def build_module_url(course_id: str, module_name: str) -> str:
+        """
+        Build URL to course with module anchor for auto-expansion.
+
+        Args:
+            course_id (str): Course ID
+            module_name (str): Module directory name
+
+        Returns:
+            str: URL with module anchor (e.g., /course/123#module-introduction)
+        """
+        module_anchor = module_name.replace(' ', '-').replace('/', '-').lower()
+        return f'/course/{course_id}#module-{module_anchor}'
+
+    @staticmethod
     def prepare_lesson_content(file_path: str) -> Dict[str, Any]:
         """
         Prepare lesson content based on file type.
@@ -302,10 +317,12 @@ class LessonService:
         breadcrumbs = registry_service.build_breadcrumbs_from_path(course_path, course_entry["title"])
 
         has_module, module_name = LessonService.get_module_info(lesson_path)
+        back_url = f'/course/{course_id}'
+
         if has_module:
-            module_anchor = module_name.replace(' ', '-').replace('/', '-').lower()
-            module_url = f'/course/{course_id}#module-{module_anchor}'
+            module_url = LessonService.build_module_url(course_id, module_name)
             breadcrumbs.append({"title": module_name, "url": module_url})
+            back_url = module_url
 
         breadcrumbs.append({"title": lesson_title, "url": None})
 
@@ -327,7 +344,8 @@ class LessonService:
             'duration': file_metadata['duration'],
             'breadcrumbs': breadcrumbs,
             'next_lesson': navigation['next'],
-            'previous_lesson': navigation['previous']
+            'previous_lesson': navigation['previous'],
+            'back_to_course_url': back_url
         }
 
     @staticmethod
