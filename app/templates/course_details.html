@@ -15,10 +15,10 @@
         <!-- Course Details Cell -->
         {{ course_details_cell(course_structure.metadata) }}
 
-        <!-- Modules & Lessons -->
+        <!-- Modules -->
         {% if course_structure.modules %}
             <div class="ls-modules-section">
-                <h2 class="ls-modules-title">Modules & Lessons</h2>
+                <h2 class="ls-modules-title">Modules</h2>
                 <div class="ls-modules-list">
                     {% for module in course_structure.modules %}
                         {{ module_cell(module, course_id) }}

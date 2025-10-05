@@ -27,7 +27,7 @@
 
     .theme-toggle {
         padding: 0.5rem 1rem;
-        border: 1px solid #ccc;
+        border: 1px solid $ls-border;
         background: none;
         cursor: pointer;
         border-radius: 0.5rem;
@@ -51,7 +51,7 @@
 }
 
 .course-card {
-    background: #5bc0eb; // blue placeholder
+    background: $ls-accent;
     aspect-ratio: 4 / 3;
     border-radius: 0.75rem;
     overflow: hidden;
@@ -72,13 +72,13 @@
 
     .course-thumbnail {
         flex: 1;
-        background: #5bc0eb; // same blue, replace later with course image
+        background: $ls-accent;
     }
 
     .course-title {
         text-align: center;
         padding: 0.5rem;
         font-size: 1rem;
-        background: rgba(255, 255, 255, 0.8);
+        background: $ls-panel;
     }
 }

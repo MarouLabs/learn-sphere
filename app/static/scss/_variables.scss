@@ -1,21 +1,29 @@
 // SCSS Variables for internal use
-// Colors
-$ls-bg: #0f172a;
-$ls-panel: #111827;
-$ls-panel-2: #0b1220;
-$ls-panel-3: #0e1626; // Darker panel variant
-$ls-panel-4: #0d1523; // Even darker panel variant
-$ls-accent: #38bdf8;
-$ls-accent-light: #60a5fa;
-$ls-accent-dark: #00131d;
-$ls-text: #e5e7eb;
-$ls-muted: #94a3b8;
-$ls-border: #23344a;
-$ls-success: #22c55e;
-$ls-error: #dc2626;
-$ls-warning: #f59e0b;
-$ls-info: #3b82f6;
-$ls-purple: #7c3aed;
+// Dark Theme Colors
+$ls-bg: #121E26;
+$ls-panel: #1C2A33;
+$ls-panel-2: #162129;
+$ls-panel-3: #1C2A33;
+$ls-panel-4: #243340;
+$ls-accent: #227D9B;
+$ls-accent-light: #4AAEC3;
+$ls-accent-dark: #1A5C75;
+$ls-text: #E4ECEF;
+$ls-text-inverse: #121E26;
+$ls-muted: #8B9BA6;
+$ls-border: #243340;
+$ls-success: #57C08D;
+$ls-success-text-on: #0F2E20;
+$ls-error: #E06666;
+$ls-error-text-on: #2B0F0F;
+$ls-warning: #F1C55D;
+$ls-warning-text-on: #30270E;
+$ls-info: #4FD0E7;
+$ls-info-text-on: #0A2E36;
+$ls-secondary: #D9714C;
+$ls-purple: #9B52E0;
+$ls-white: #FFFFFF;
+$ls-black: #000000;
 
 // Layout dimensions
 $ls-sidebar-width: 280px;
@@ -85,12 +93,18 @@ $ls-z-toast: 10000;
     --ls-accent-light: #{$ls-accent-light};
     --ls-accent-dark: #{$ls-accent-dark};
     --ls-text: #{$ls-text};
+    --ls-text-inverse: #{$ls-text-inverse};
     --ls-muted: #{$ls-muted};
     --ls-border: #{$ls-border};
     --ls-success: #{$ls-success};
+    --ls-success-text-on: #{$ls-success-text-on};
     --ls-error: #{$ls-error};
+    --ls-error-text-on: #{$ls-error-text-on};
     --ls-warning: #{$ls-warning};
+    --ls-warning-text-on: #{$ls-warning-text-on};
     --ls-info: #{$ls-info};
+    --ls-info-text-on: #{$ls-info-text-on};
+    --ls-secondary: #{$ls-secondary};
     --ls-purple: #{$ls-purple};
 
     /* Layout */
@@ -128,15 +142,22 @@ $ls-z-toast: 10000;
 
 // Light theme overrides
 body.light-theme {
-    --ls-bg: #ffffff;
-    --ls-panel: #f8fafc;
-    --ls-panel-2: #f1f5f9;
-    --ls-panel-3: #e2e8f0;
-    --ls-panel-4: #cbd5e1;
-    --ls-accent: #0ea5e9;
-    --ls-accent-light: #38bdf8;
-    --ls-accent-dark: #ffffff;
-    --ls-text: #1e293b;
-    --ls-muted: #64748b;
-    --ls-border: #e2e8f0;
+    --ls-bg: #F7F9FA;
+    --ls-panel: #FFFFFF;
+    --ls-panel-2: #FFFFFF;
+    --ls-panel-3: #EFF2F4;
+    --ls-panel-4: #E8ECEE;
+    --ls-accent: #227D9B;
+    --ls-accent-light: #4AAEC3;
+    --ls-accent-dark: #1A5C75;
+    --ls-text: #172B4D;
+    --ls-text-inverse: #FFFFFF;
+    --ls-muted: #5E6C84;
+    --ls-border: #DFE1E6;
+    --ls-success: #5CAB7D;
+    --ls-error: #C94C4C;
+    --ls-warning: #E2A03F;
+    --ls-info: #3FA7C3;
+    --ls-secondary: #D9714C;
+    --ls-purple: #9B52E0;
 }

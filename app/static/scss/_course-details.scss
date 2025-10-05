@@ -39,10 +39,6 @@
         font-size: 2rem;
         margin-bottom: $ls-spacing-md;
     }
-
-    @media (max-width: 480px) {
-        font-size: 1.75rem;
-    }
 }
 
 .ls-course-details-description {
@@ -239,7 +235,7 @@
     color: var(--ls-accent);
 
     @media (max-width: $ls-breakpoint-mobile-max) {
-        font-size: $ls-font-size-sm;
+        font-size: $ls-font-size-base;
     }
 }
 
@@ -250,7 +246,7 @@
     margin: 0;
 
     @media (max-width: $ls-breakpoint-mobile-max) {
-        font-size: $ls-font-size-base;
+        font-size: $ls-font-size-md;
     }
 }
 
@@ -365,9 +361,11 @@
     color: var(--ls-text);
     flex: 1;
     text-decoration: none !important;
+    font-size: $ls-font-size-base;
 
     @media (max-width: $ls-breakpoint-mobile-max) {
         width: 100%;
+        font-size: $ls-font-size-md;
     }
 }
 
@@ -395,12 +393,12 @@
     }
 
     &.ls-type-audio {
-        background: var(--ls-warning);
+        background: var(--ls-purple);
         color: white;
     }
 
     &.ls-type-text {
-        background: var(--ls-info);
+        background: var(--ls-accent);
         color: white;
     }
 

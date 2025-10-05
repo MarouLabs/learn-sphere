@@ -140,20 +140,24 @@
 // Responsive adjustments
 @media (max-width: $ls-breakpoint-mobile-max) {
     .ls-course-cell-content {
-        padding: $ls-spacing-sm;
+        padding: $ls-spacing-md;
     }
-    
+
     .ls-course-cell-title {
-        font-size: $ls-font-size-sm;
+        font-size: $ls-font-size-md;
     }
-    
+
+    .ls-course-cell-type {
+        font-size: $ls-font-size-base;
+    }
+
     .ls-course-cell-image {
         &.ls-course-fallback {
-            font-size: $ls-font-size-lg;
+            font-size: $ls-font-size-xl;
         }
-        
+
         &.ls-directory-fallback .ls-directory-icon {
-            font-size: 2rem;
+            font-size: 2.5rem;
         }
     }
 }
