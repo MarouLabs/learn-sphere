@@ -6,7 +6,10 @@
 {% block title %}{{ lesson_title }} - Learn Sphere{% endblock %}
 
 {% block content %}
-<div class="ls-lesson-view-page">
+<div class="ls-lesson-view-page"
+     data-course-id="{{ course_id }}"
+     data-lesson-path="{{ lesson_path }}"
+     data-lesson-type="{{ lesson_type }}">
     <main class="ls-lesson-view-main">
         <!-- Back Button -->
         <div class="ls-back-button-container">
@@ -17,8 +20,16 @@
 
         {{ breadcrumb_nav(breadcrumbs) }}
 
-        <!-- Lesson Title -->
-        <h1 class="ls-lesson-view-title">{{ lesson_title }}</h1>
+        <!-- Lesson Title and Mark Completed Button -->
+        <div class="ls-lesson-header">
+            <h1 class="ls-lesson-view-title">{{ lesson_title }}</h1>
+            <button id="markCompletedBtn" class="ls-btn ls-btn--primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                </svg>
+                <span>Mark Completed</span>
+            </button>
+        </div>
 
         <!-- Lesson File Info Component -->
         {{ lesson_file_info(file_format, file_size, duration) }}
@@ -54,4 +65,5 @@
 </div>
 
 <script src="{{ url_for('static', filename='js/lesson-player.js') }}"></script>
+<script src="{{ url_for('static', filename='js/progress-tracker.js') }}"></script>
 {% endblock %}

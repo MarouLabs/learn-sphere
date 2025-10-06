@@ -207,7 +207,7 @@ class ContentDetectionService:
     @staticmethod
     def calculate_progress(directory_path: str) -> float:
         """
-        Calculate progress for a course/module (placeholder implementation).
+        Calculate progress for a course/module based on completion tracking.
 
         Args:
             directory_path (str): Path to calculate progress for
@@ -215,11 +215,14 @@ class ContentDetectionService:
         Returns:
             float: Progress percentage (0.0 to 100.0)
         """
-        # TODO: Implement actual progress calculation based on completion tracking
-        # For now, return a random-ish value based on directory name
-        import hashlib
-        hash_value = int(hashlib.md5(directory_path.encode()).hexdigest()[:8], 16)
-        return (hash_value % 101)  # 0-100
+        from app.services.progress_service import ProgressService
+
+        try:
+            progress_service = ProgressService(directory_path)
+            stats = progress_service.get_course_completion_stats()
+            return stats.get("completion_percentage", 0.0)
+        except Exception:
+            return 0.0
 
     @staticmethod
     def scan_course_modules(course_directory: str) -> List[ModuleData]:

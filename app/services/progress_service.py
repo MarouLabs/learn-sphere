@@ -79,11 +79,20 @@ class ProgressService:
 
     def get_course_completion_stats(self) -> Dict[str, Any]:
         """Get overall completion statistics for the course."""
-        progress_data = self.get_progress()
-        lessons = progress_data.get("lessons", {})
+        from app.services.content_detection_service import ContentDetectionService
 
-        total_lessons = len(lessons)
-        completed_lessons = sum(1 for lesson in lessons.values() if lesson.get("completed", False))
+        progress_data = self.get_progress()
+        progress_lessons = progress_data.get("lessons", {})
+
+        # Get actual total lesson count from the course
+        course_directory = self.repository.course_directory
+        modules = ContentDetectionService.scan_course_modules(course_directory)
+        root_lessons = ContentDetectionService.scan_course_lessons(course_directory)
+
+        total_lessons = sum(len(module.lessons) for module in modules) + len(root_lessons)
+
+        # Count completed lessons from progress data
+        completed_lessons = sum(1 for lesson in progress_lessons.values() if lesson.get("completed", False))
 
         completion_percentage = (completed_lessons / total_lessons * 100) if total_lessons > 0 else 0.0
 

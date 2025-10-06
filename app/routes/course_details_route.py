@@ -4,6 +4,7 @@ from app.services.user_preferences_service import UserPreferencesService
 from app.services.course_metadata_service import CourseMetadataService
 from app.services.content_detection_service import ContentDetectionService
 from app.services.directory_service import DirectoryService
+from app.services.progress_service import ProgressService
 from app.models.course_model import NodeType
 from app.models.course_structure_model import CourseStructure
 
@@ -32,6 +33,27 @@ def details(course_id):
     metadata = CourseMetadataService.get_or_create_metadata(course_path, course_entry["title"])
     modules = ContentDetectionService.scan_course_modules(course_path)
     lessons = ContentDetectionService.scan_course_lessons(course_path)
+
+    # Load progress data and apply to lessons
+    progress_service = ProgressService(course_path)
+    progress_data = progress_service.get_progress()
+    progress_lessons = progress_data.get("lessons", {})
+
+    # Apply progress to root-level lessons
+    for lesson in lessons:
+        if lesson.file_path:
+            lesson_filename = lesson.file_path.split('/')[-1]
+            if lesson_filename in progress_lessons:
+                lesson.completed = progress_lessons[lesson_filename].get("completed", False)
+
+    # Apply progress to module lessons
+    for module in modules:
+        for lesson in module.lessons:
+            if lesson.file_path:
+                lesson_filename = lesson.file_path.split('/')[-1]
+                lesson_relative_path = f"{module.directory_name}/{lesson_filename}" if module.directory_name else lesson_filename
+                if lesson_relative_path in progress_lessons:
+                    lesson.completed = progress_lessons[lesson_relative_path].get("completed", False)
 
     # Update metadata with current counts
     metadata.total_modules = len(modules)

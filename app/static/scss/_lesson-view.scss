@@ -40,14 +40,38 @@
     }
 }
 
+// Lesson Header (Title + Mark Completed Button)
+.ls-lesson-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: $ls-spacing-md;
+    margin-bottom: $ls-spacing-md;
+
+    @media (max-width: $ls-breakpoint-mobile-max) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: $ls-spacing-sm;
+    }
+}
+
 .ls-lesson-view-title {
     font-size: 2rem;
     font-weight: 700;
     color: var(--ls-text);
-    margin-bottom: $ls-spacing-md;
+    margin: 0;
+    flex: 1;
 
     @media (max-width: $ls-breakpoint-mobile-max) {
         font-size: 1.75rem;
+    }
+}
+
+#markCompletedBtn {
+    flex-shrink: 0;
+
+    @media (max-width: $ls-breakpoint-mobile-max) {
+        width: 100%;
     }
 }
 
