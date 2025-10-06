@@ -1,8 +1,9 @@
 {% from "components/lesson_cell.html" import lesson_cell %}
+{% from "components/completion_badge.html" import completion_badge %}
 
 {% macro module_cell(module, course_id) %}
 {% set module_anchor = module.directory_name.replace(' ', '-').replace('/', '-').lower() if module.directory_name else 'module-' ~ module.module_number %}
-<div class="ls-module-cell" id="module-{{ module_anchor }}">
+<div class="ls-module-cell {% if module.completed %}ls-module-completed{% endif %}" id="module-{{ module_anchor }}">
     <!-- Module Number Column (Left) -->
     <div class="ls-module-number-column" onclick="toggleModule('module-{{ module.module_number }}')">
         <span class="ls-module-number">Module {{ module.module_number }}</span>
@@ -27,13 +28,7 @@
                     {% endif %}
 
                     <!-- Completion Badge -->
-                    <span class="ls-module-badge ls-completion-badge {% if module.completed %}ls-completed{% else %}ls-incomplete{% endif %}">
-                        {% if module.completed %}
-                            ✓
-                        {% else %}
-                            ●
-                        {% endif %}
-                    </span>
+                    {{ completion_badge(module.completed, 'module') }}
 
                     <!-- Collapse/Expand Icon -->
                     <span class="ls-module-toggle-icon">▼</span>

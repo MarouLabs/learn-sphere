@@ -1,0 +1,20 @@
+{% macro completion_badge(is_completed, badge_type='lesson') %}
+{#
+    Completion Badge Component
+
+    Args:
+        is_completed (bool): Whether the item is completed
+        badge_type (str): Type of badge - 'lesson' or 'module' (default: 'lesson')
+
+    Usage:
+        {{ completion_badge(lesson.completed, 'lesson') }}
+        {{ completion_badge(module.completed, 'module') }}
+#}
+<span class="ls-{{ badge_type }}-badge ls-completion-badge {% if is_completed %}ls-completed{% else %}ls-incomplete{% endif %}">
+    {% if is_completed %}
+        ✓
+    {% else %}
+        ∘
+    {% endif %}
+</span>
+{% endmacro %}

@@ -46,14 +46,23 @@ def details(course_id):
             if lesson_filename in progress_lessons:
                 lesson.completed = progress_lessons[lesson_filename].get("completed", False)
 
-    # Apply progress to module lessons
+    # Apply progress to module lessons and calculate module completion
     for module in modules:
+        completed_count = 0
         for lesson in module.lessons:
             if lesson.file_path:
                 lesson_filename = lesson.file_path.split('/')[-1]
                 lesson_relative_path = f"{module.directory_name}/{lesson_filename}" if module.directory_name else lesson_filename
                 if lesson_relative_path in progress_lessons:
                     lesson.completed = progress_lessons[lesson_relative_path].get("completed", False)
+                    if lesson.completed:
+                        completed_count += 1
+
+        # Mark module as completed if all lessons are completed
+        if len(module.lessons) > 0 and completed_count == len(module.lessons):
+            module.completed = True
+        else:
+            module.completed = False
 
     # Update metadata with current counts
     metadata.total_modules = len(modules)
