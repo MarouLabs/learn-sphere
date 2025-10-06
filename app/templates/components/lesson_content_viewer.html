@@ -4,15 +4,6 @@
     {% if lesson_type == 'video' %}
         <!-- Video Player -->
         <div class="ls-video-player-container">
-            <video
-                id="lessonVideoPlayer"
-                class="ls-video-player"
-                controls
-                controlsList="nodownload"
-                preload="metadata">
-                <source src="{{ media_url }}" type="video/mp4">
-                Your browser does not support the video player.
-            </video>
             <div class="ls-player-controls">
                 <label for="videoSpeed">Playback Speed:</label>
                 <select id="videoSpeed" class="ls-speed-selector">
@@ -26,20 +17,20 @@
                     <option value="2.0" {% if video_speed == 2.0 %}selected{% endif %}>2.0x</option>
                 </select>
             </div>
+            <video
+                id="lessonVideoPlayer"
+                class="ls-video-player"
+                controls
+                controlsList="nodownload"
+                preload="metadata">
+                <source src="{{ media_url }}" type="video/mp4">
+                Your browser does not support the video player.
+            </video>
         </div>
 
     {% elif lesson_type == 'audio' %}
         <!-- Audio Player -->
         <div class="ls-audio-player-container">
-            <audio
-                id="lessonAudioPlayer"
-                class="ls-audio-player"
-                controls
-                controlsList="nodownload"
-                preload="metadata">
-                <source src="{{ media_url }}" type="audio/mpeg">
-                Your browser does not support the audio player.
-            </audio>
             <div class="ls-player-controls">
                 <label for="audioSpeed">Playback Speed:</label>
                 <select id="audioSpeed" class="ls-speed-selector">
@@ -53,6 +44,15 @@
                     <option value="2.0" {% if audio_speed == 2.0 %}selected{% endif %}>2.0x</option>
                 </select>
             </div>
+            <audio
+                id="lessonAudioPlayer"
+                class="ls-audio-player"
+                controls
+                controlsList="nodownload"
+                preload="metadata">
+                <source src="{{ media_url }}" type="audio/mpeg">
+                Your browser does not support the audio player.
+            </audio>
         </div>
 
     {% elif lesson_type == 'text' %}

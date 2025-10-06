@@ -186,6 +186,38 @@ class ProgressTracker {
             btn.classList.remove('ls-btn--success');
             btn.classList.add('ls-btn--primary');
         }
+
+        // Update sidebar lesson item
+        this.updateSidebarLesson();
+    }
+
+    updateSidebarLesson() {
+        const sidebarLesson = document.querySelector(`.ls-sidebar-lesson.active`);
+        if (!sidebarLesson) return;
+
+        if (this.isCompleted) {
+            sidebarLesson.classList.add('completed');
+
+            // Add checkmark if it doesn't exist
+            if (!sidebarLesson.querySelector('.ls-sidebar-lesson-check')) {
+                const checkmark = document.createElement('div');
+                checkmark.className = 'ls-sidebar-lesson-check';
+                checkmark.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                `;
+                sidebarLesson.appendChild(checkmark);
+            }
+        } else {
+            sidebarLesson.classList.remove('completed');
+
+            // Remove checkmark if it exists
+            const checkmark = sidebarLesson.querySelector('.ls-sidebar-lesson-check');
+            if (checkmark) {
+                checkmark.remove();
+            }
+        }
     }
 }
 

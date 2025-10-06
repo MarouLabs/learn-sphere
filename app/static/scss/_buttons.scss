@@ -2,6 +2,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: $ls-spacing-sm;
     padding: $ls-spacing-10 $ls-spacing-14;
     border: 1px solid $ls-border;
     background: transparent;
@@ -19,7 +20,7 @@
     &--primary {
         background: $ls-accent;
         border-color: $ls-accent;
-        color: $ls-accent-dark;
+        color: $ls-white;
         font-weight: 600;
     }
 
@@ -27,6 +28,7 @@
         background: $ls-success;
         border-color: $ls-success;
         color: white;
+        font-weight: 600;
     }
 
     &--danger {

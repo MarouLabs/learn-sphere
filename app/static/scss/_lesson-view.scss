@@ -256,9 +256,9 @@
     display: flex;
     align-items: center;
     gap: $ls-spacing-sm;
-    margin-top: $ls-spacing-md;
-    padding-top: $ls-spacing-md;
-    border-top: 1px solid $ls-border;
+    margin-bottom: $ls-spacing-md;
+    padding-bottom: $ls-spacing-md;
+    border-bottom: 1px solid $ls-border;
 
     label {
         font-size: $ls-font-size-sm;
@@ -770,6 +770,11 @@
     flex: 1;
     overflow-y: auto;
     padding: $ls-spacing-sm;
+
+    // Mobile: add bottom padding to prevent content being hidden by browser UI
+    @media (max-width: 768px) {
+        padding-bottom: 100px;
+    }
 }
 
 .ls-sidebar-lesson {
@@ -810,6 +815,13 @@
             color: $ls-accent;
         }
     }
+
+    // Mobile: larger touch targets and spacing
+    @media (max-width: 768px) {
+        padding: $ls-spacing-md $ls-spacing-lg;
+        margin-bottom: $ls-spacing-sm;
+        gap: $ls-spacing-md;
+    }
 }
 
 .ls-sidebar-lesson-icon {
@@ -828,6 +840,11 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     transition: color $ls-transition-fast;
+
+    // Mobile: increase text size for better readability
+    @media (max-width: 768px) {
+        font-size: $ls-font-size-base;
+    }
 }
 
 .ls-sidebar-lesson-check {
