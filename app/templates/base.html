@@ -11,13 +11,18 @@
 <body class="{% if user_theme == 'light' %}light-theme{% endif %}">
     <!-- Common Header -->
     <header class="ls-header">
-        <div class="ls-header-brand">
-            <div class="ls-header-logo">LS</div>
-            <span>Learn Sphere</span>
+        <div class="ls-header-left">
+            {% block header_left %}{% endblock %}
+            <div class="ls-header-brand">
+                <div class="ls-header-logo">LS</div>
+                <span>Learn Sphere</span>
+            </div>
         </div>
-        <!-- <button id="theme-toggle" class="ls-theme-toggle">
-            ☀️/🌑
-        </button> -->
+        <div class="ls-header-right">
+            <!-- <button id="theme-toggle" class="ls-theme-toggle">
+                ☀️/🌑
+            </button> -->
+        </div>
     </header>
 
     <!-- Page Content -->

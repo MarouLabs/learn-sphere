@@ -28,12 +28,33 @@
 .ls-lesson-view-page {
     flex: 1;
     background: var(--ls-bg);
+    display: flex;
+    position: relative;
+    justify-content: center;
+
+    &.has-sidebar {
+        // Desktop/Tablet: sidebar doesn't affect centering
+        @media (min-width: 769px) {
+            &.sidebar-open {
+                // Shift the centering point to account for sidebar
+                justify-content: flex-start;
+
+                .ls-lesson-view-main {
+                    margin-left: 320px;
+                    margin-right: 0;
+                }
+            }
+        }
+    }
 }
 
 .ls-lesson-view-main {
-    max-width: 1280px;
+    flex: 1;
+    max-width: $ls-content-max-width;
     margin: 0 auto;
     padding: $ls-spacing-xl;
+    width: 100%;
+    transition: margin $ls-transition-smooth;
 
     @media (max-width: $ls-breakpoint-mobile-max) {
         padding: $ls-spacing-md;
@@ -640,5 +661,204 @@
     @media (max-width: $ls-breakpoint-mobile-max) {
         width: 100%;
         justify-content: center;
+    }
+}
+
+// Sidebar Toggle Button (in header)
+.ls-sidebar-toggle-header {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: $ls-spacing-sm;
+    background: transparent;
+    border: 1px solid $ls-border;
+    border-radius: $ls-border-radius;
+    color: $ls-text;
+    cursor: pointer;
+    transition: all $ls-transition-fast;
+    width: 36px;
+    height: 36px;
+
+    &:hover {
+        background: $ls-panel-3;
+        border-color: $ls-accent;
+        color: $ls-accent;
+    }
+
+    svg {
+        flex-shrink: 0;
+    }
+}
+
+// Sidebar
+.ls-lesson-sidebar {
+    position: fixed;
+    top: 0;
+    left: -320px;
+    width: 320px;
+    height: 100vh;
+    background: $ls-panel;
+    border-right: 1px solid $ls-border;
+    z-index: 1001;
+    transition: left $ls-transition-smooth;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    // Desktop/Tablet: Push behavior
+    @media (min-width: 769px) {
+        .ls-lesson-view-page.sidebar-open & {
+            left: 0;
+        }
+    }
+
+    // Mobile: Full-width overlay
+    @media (max-width: 768px) {
+        width: 100%;
+        left: -100%;
+
+        &.open {
+            left: 0;
+        }
+    }
+}
+
+.ls-lesson-sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $ls-spacing-md;
+    border-bottom: 1px solid $ls-border;
+    background: $ls-panel-2;
+
+    h3 {
+        margin: 0;
+        font-size: $ls-font-size-md;
+        color: $ls-accent;
+        font-weight: 600;
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+.ls-sidebar-close {
+    background: transparent;
+    border: 1px solid $ls-border;
+    border-radius: $ls-border-radius-sm;
+    padding: $ls-spacing-xs;
+    color: $ls-muted;
+    cursor: pointer;
+    transition: all $ls-transition-fast;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    margin-left: $ls-spacing-sm;
+
+    &:hover {
+        background: $ls-panel-4;
+        border-color: $ls-accent;
+        color: $ls-accent;
+    }
+}
+
+.ls-lesson-sidebar-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: $ls-spacing-sm;
+}
+
+.ls-sidebar-lesson {
+    display: flex;
+    align-items: center;
+    gap: $ls-spacing-sm;
+    padding: $ls-spacing-sm $ls-spacing-md;
+    margin-bottom: $ls-spacing-xs;
+    border: 1px solid transparent;
+    border-radius: $ls-border-radius;
+    background: transparent;
+    color: $ls-text;
+    text-decoration: none;
+    transition: all $ls-transition-fast;
+    cursor: pointer;
+
+    &:hover {
+        background: $ls-panel-3;
+        border-color: $ls-border;
+    }
+
+    &.completed {
+        .ls-sidebar-lesson-check {
+            color: $ls-success;
+        }
+    }
+
+    &.active {
+        background: rgba($ls-accent, 0.15);
+        border-color: rgba($ls-accent, 0.4);
+
+        .ls-sidebar-lesson-title {
+            color: $ls-accent;
+            font-weight: 600;
+        }
+
+        .ls-sidebar-lesson-icon {
+            color: $ls-accent;
+        }
+    }
+}
+
+.ls-sidebar-lesson-icon {
+    flex-shrink: 0;
+    color: $ls-muted;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color $ls-transition-fast;
+}
+
+.ls-sidebar-lesson-title {
+    flex: 1;
+    font-size: $ls-font-size-sm;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: color $ls-transition-fast;
+}
+
+.ls-sidebar-lesson-check {
+    flex-shrink: 0;
+    color: $ls-success;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color $ls-transition-fast;
+}
+
+// Sidebar Overlay (Mobile only)
+.ls-sidebar-overlay {
+    display: none;
+
+    @media (max-width: 768px) {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity $ls-transition-smooth, visibility $ls-transition-smooth;
+
+        &.active {
+            opacity: 1;
+            visibility: visible;
+        }
     }
 }

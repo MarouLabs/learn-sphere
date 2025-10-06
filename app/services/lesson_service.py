@@ -284,6 +284,54 @@ class LessonService:
             return {'next': None, 'previous': None}
 
     @staticmethod
+    def get_module_lessons(course_path: str, current_lesson_path: str) -> Optional[Dict[str, Any]]:
+        """
+        Get all lessons in the same module as the current lesson.
+
+        Args:
+            course_path (str): Absolute path to the course directory
+            current_lesson_path (str): Relative path to the current lesson
+
+        Returns:
+            Optional[Dict[str, Any]]: Module lessons data or None if not in a module
+        """
+        from app.services.content_detection_service import ContentDetectionService
+        from app.services.progress_service import ProgressService
+
+        module_dir = os.path.dirname(current_lesson_path)
+        if not module_dir:
+            return None
+
+        try:
+            progress_service = ProgressService(course_path)
+            progress_data = progress_service.get_progress()
+            lessons_progress = progress_data.get('lessons', {})
+
+            modules = ContentDetectionService.scan_course_modules(course_path)
+            for module in modules:
+                if module.directory_name == module_dir:
+                    lessons_data = []
+                    for lesson in module.lessons:
+                        rel_path = os.path.relpath(lesson.file_path, course_path)
+                        is_current = (rel_path == current_lesson_path)
+                        is_completed = lessons_progress.get(rel_path, {}).get('completed', False)
+                        lessons_data.append({
+                            'title': lesson.title,
+                            'path': rel_path,
+                            'type': lesson.lesson_type.value,
+                            'is_current': is_current,
+                            'completed': is_completed
+                        })
+                    return {
+                        'module_title': module.title,
+                        'lessons': lessons_data
+                    }
+        except Exception:
+            return None
+
+        return None
+
+    @staticmethod
     def prepare_lesson_view(course_id: str, lesson_path: str, registry_service) -> Optional[Dict[str, Any]]:
         """
         Prepare all data needed for lesson view template.
@@ -329,6 +377,9 @@ class LessonService:
         # Get navigation
         navigation = LessonService.get_lesson_navigation(course_path, lesson_path)
 
+        # Get module lessons for sidebar
+        module_lessons = LessonService.get_module_lessons(course_path, lesson_path)
+
         return {
             'lesson_title': lesson_title,
             'course_title': course_entry["title"],
@@ -345,7 +396,8 @@ class LessonService:
             'breadcrumbs': breadcrumbs,
             'next_lesson': navigation['next'],
             'previous_lesson': navigation['previous'],
-            'back_to_course_url': back_url
+            'back_to_course_url': back_url,
+            'module_lessons': module_lessons
         }
 
     @staticmethod

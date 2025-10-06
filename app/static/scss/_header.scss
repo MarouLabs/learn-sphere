@@ -6,13 +6,25 @@
     padding: $ls-spacing-lg $ls-spacing-xl;
     border-bottom: 1px solid var(--ls-border);
     background: var(--ls-panel);
-    max-width: 1280px;
+    max-width: $ls-content-max-width;
     margin: 0 auto;
     width: 100%;
 
     @media (max-width: $ls-breakpoint-mobile-max) {
         padding: $ls-spacing-md;
     }
+}
+
+.ls-header-left {
+    display: flex;
+    align-items: center;
+    gap: $ls-spacing-md;
+}
+
+.ls-header-right {
+    display: flex;
+    align-items: center;
+    gap: $ls-spacing-md;
 }
 
 .ls-header-brand {

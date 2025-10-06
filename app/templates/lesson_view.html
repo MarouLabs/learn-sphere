@@ -5,11 +5,75 @@
 
 {% block title %}{{ lesson_title }} - Learn Sphere{% endblock %}
 
+{% block header_left %}
+{% if module_lessons %}
+<button id="sidebarToggle" class="ls-sidebar-toggle-header" aria-label="Toggle sidebar">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+</button>
+{% endif %}
+{% endblock %}
+
 {% block content %}
-<div class="ls-lesson-view-page"
+<div class="ls-lesson-view-page {% if module_lessons %}has-sidebar{% endif %}"
      data-course-id="{{ course_id }}"
      data-lesson-path="{{ lesson_path }}"
      data-lesson-type="{{ lesson_type }}">
+
+    {% if module_lessons %}
+    <!-- Sidebar -->
+    <aside id="lessonSidebar" class="ls-lesson-sidebar">
+        <div class="ls-lesson-sidebar-header">
+            <h3>{{ module_lessons.module_title }}</h3>
+            <button id="sidebarClose" class="ls-sidebar-close" aria-label="Close sidebar">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="ls-lesson-sidebar-content">
+            {% for lesson in module_lessons.lessons %}
+            <a href="{{ url_for('lesson.view', course_id=course_id, lesson_path=lesson.path) }}"
+               class="ls-sidebar-lesson {% if lesson.is_current %}active{% endif %} {% if lesson.completed %}completed{% endif %}">
+                <div class="ls-sidebar-lesson-icon">
+                    {% if lesson.type == 'video' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    {% elif lesson.type == 'audio' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 18V5l12-2v13"></path>
+                        <circle cx="6" cy="18" r="3"></circle>
+                        <circle cx="18" cy="16" r="3"></circle>
+                    </svg>
+                    {% else %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                    </svg>
+                    {% endif %}
+                </div>
+                <span class="ls-sidebar-lesson-title">{{ lesson.title }}</span>
+                {% if lesson.completed %}
+                <div class="ls-sidebar-lesson-check">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </div>
+                {% endif %}
+            </a>
+            {% endfor %}
+        </div>
+    </aside>
+
+    <!-- Sidebar Overlay (Mobile only) -->
+    <div id="sidebarOverlay" class="ls-sidebar-overlay"></div>
+    {% endif %}
+
     <main class="ls-lesson-view-main">
         <!-- Back Button -->
         <div class="ls-back-button-container">
@@ -66,4 +130,5 @@
 
 <script src="{{ url_for('static', filename='js/lesson-player.js') }}"></script>
 <script src="{{ url_for('static', filename='js/progress-tracker.js') }}"></script>
+<script src="{{ url_for('static', filename='js/lesson-sidebar.js') }}"></script>
 {% endblock %}
